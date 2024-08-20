@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "backend server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tna113/vybes.git"
+  },
+  "author": "thea arias",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tna113/vybes/issues"
+  },
+  "homepage": "https://github.com/tna113/vybes#readme"
+}
