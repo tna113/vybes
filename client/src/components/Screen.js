@@ -1,7 +1,6 @@
 import React from "react"
 import axios from 'axios';
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
+import {Container, Button} from "@mui/material";
 
 const apiCall = () => {
     axios.get('http://localhost:3000').then((data) => {
