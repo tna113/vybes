@@ -8,6 +8,8 @@
 
 **backend**: node.js, [express](https://github.com/expressjs/express), [axios](https://github.com/axios/axios)
 
+**linter**: eslint
+
 **database**: mysql
 
 **server**: mysql (local)
