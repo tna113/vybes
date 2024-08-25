@@ -1,6 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import React from 'react';
 
 const apiCall = () => {
   axios.get('http://localhost:3000').then((data) => {

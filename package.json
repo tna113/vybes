@@ -1,0 +1,32 @@
+{
+  "name": "vybes",
+  "version": "1.0.0",
+  "description": "a web application designed to track shared songs between friends.",
+  "main": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "eslint": "^9.9.1",
+    "eslint-plugin-react": "^7.35.0",
+    "globals": "^15.9.0"
+  },
+  "scripts": {
+    "start-server": "cd ./server && node index.js",
+    "start-client": "cd ./client && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-backend": "cd ./server && npm i",
+    "install-frontend": "cd ./client && npm i",
+    "install": "npm run install-backend && npm run install-frontend",
+    "lint": "npx eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tna113/vybes.git"
+  },
+  "author": "thea arias",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tna113/vybes/issues"
+  },
+  "homepage": "https://github.com/tna113/vybes#readme"
+}
