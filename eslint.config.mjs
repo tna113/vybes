@@ -20,6 +20,7 @@ export default [
     plugins: {
       pluginReact
     },
+    ignores: ["./client/assets/*"],
   },
   {
     languageOptions: { 

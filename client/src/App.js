@@ -1,12 +1,14 @@
 import './App.css';
 import React from 'react';
-import { Screen } from './components/Screen';
-
-
+import { HomeScreen } from './features/HomeScreen';
+import { ThemeProvider } from '@mui/material/styles'
+import {theme} from './assets/theme.js'
 
 function App() {
   return (
-    <Screen />
+    <ThemeProvider theme={theme}>
+      <HomeScreen />
+    </ThemeProvider>
   );
 }
 

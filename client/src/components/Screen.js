@@ -1,17 +1,17 @@
 import React from "react"
-import axios from 'axios';
-import {Container, Button} from "@mui/material";
+import {Container} from "@mui/material";
+import { colors } from "../assets/colors";
 
-const apiCall = () => {
-    axios.get('http://localhost:3000').then((data) => {
-      console.log(data);
-    })
-  }
+const container = {
+    backgroundColor: colors.green.primary,
+    height: '100%',
+    padding: '32px 32px',
+}
 
-export function Screen() {
+export function Screen({children, sx}) { // eslint-disable-line react/prop-types
     return (
-        <Container>
-            <Button onClick={apiCall}>make api call</Button>
+        <Container maxWidth sx={{...sx, ...container}}>
+            {children}
         </Container>
     )
 }
