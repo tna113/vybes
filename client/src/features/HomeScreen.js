@@ -1,6 +1,6 @@
 import React from "react"
 // import axios from 'axios';
-import {styled, Stack, Typography, IconButton} from "@mui/material";
+import {styled, Stack, Typography, IconButton, Container} from "@mui/material";
 import { Screen } from "../components/Screen";
 import { TrackCard } from "../components/TrackCard";
 import Menu from '@mui/icons-material/Menu';
@@ -14,8 +14,8 @@ import { colors } from "../assets/colors";
 //   })
 // }
 
-// const data = Array(5).fill().map((_, index) => Object.fromEntries([['title', `track${index+1}`], ['artist', `artist${index+1}`], ['rating', index]]));
-const data = undefined;
+const data = Array(5).fill().map((_, index) => Object.fromEntries([['title', `track${index+1}`], ['artist', `artist${index+1}`], ['rating', index]]));
+// const data = undefined;
 
 const HeaderStack = styled(Stack)({
   justifyContent: 'space-between',
@@ -58,13 +58,15 @@ export function HomeScreen() {
                 </IconButton>
               </ButtonStack>
             </HeaderStack>
-            <Stack direction="column" sx={{...trackContainer}}>
+            <Stack direction="column">
               {data ? (
                 <>
                   {data.map((item, index) => <TrackCard key={`trackCard_${index}`} title={item.title} artist={item.artist} rating={item.rating} />)}
                 </>
               ) : (
-                <Typography>no songs</Typography>
+                <Container sx={{...trackContainer}}>
+                  <Typography>no songs</Typography>
+                </Container>
               )}
             </Stack>
         </Screen>
