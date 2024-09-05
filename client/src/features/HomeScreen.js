@@ -20,7 +20,7 @@ const HeaderStack = styled(Stack)({
   justifyContent: 'space-between',
   marginBottom: '24px',
   textTransform: 'uppercase',
-  color: colors.green.white,
+  color: colors.theme1.white,
   "& .title": {
     paddingLeft: '8px',
   },
@@ -29,7 +29,7 @@ const ButtonStack = styled(Stack)({
   alignItems: 'center',
 });
 const buttonContainer = {
-  color: colors.green.white,
+  color: colors.theme1.white,
 };
 
 export function HomeScreen() {

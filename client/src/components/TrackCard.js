@@ -6,7 +6,7 @@ import Star from '@mui/icons-material/Star';
 import StarOutline from '@mui/icons-material/StarOutline';
 
 const StyledCard = styled(Button)({
-  backgroundColor: colors.green.white,
+  backgroundColor: colors.theme1.white,
   margin: '8px 0',
   padding: '0',
   height: '158px',
@@ -24,7 +24,7 @@ const StyledCard = styled(Button)({
   },
   ".content": {
     // backgroundColor: 'red',
-    color: colors.green.darkGreen,
+    color: colors.theme1.darkGreen,
     height: '100%',
     width: '100%',
   },
@@ -32,21 +32,21 @@ const StyledCard = styled(Button)({
     paddingTop: '48px',
   },
   '.star': {
-    color: colors.green.darkGreen,
+    color: colors.theme1.darkGreen,
     margin: '-1px',
     padding: '0',
     fontSize: 'large',
   },
   "&:hover": {
     borderRadius: '5px 5px 0px 0px',
-    backgroundColor: colors.green.darkGreen,
-    color: colors.green.white
+    backgroundColor: colors.theme1.darkGreen,
+    color: colors.theme1.white
   },
   "&:hover .buttonText": {
-    color: colors.green.white,
+    color: colors.theme1.white,
   },
   "&:hover .star": {
-    color: colors.green.white,
+    color: colors.theme1.white,
   },
 });
 
