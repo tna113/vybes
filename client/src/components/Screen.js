@@ -4,7 +4,7 @@ import { colors } from "../assets/colors";
 
 const container = {
     backgroundColor: colors.theme1.green,
-    height: '100%',
+    minHeight: '100vh',
     padding: '32px 32px',
 }
 

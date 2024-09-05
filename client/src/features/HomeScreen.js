@@ -14,7 +14,8 @@ import { colors } from "../assets/colors";
 //   })
 // }
 
-const data = Array(5).fill().map((_, index) => Object.fromEntries([['title', `track${index+1}`], ['artist', `artist${index+1}`], ['rating', index]]));
+// const data = Array(5).fill().map((_, index) => Object.fromEntries([['title', `track${index+1}`], ['artist', `artist${index+1}`], ['rating', index]]));
+const data = undefined;
 
 const HeaderStack = styled(Stack)({
   justifyContent: 'space-between',
@@ -31,6 +32,13 @@ const ButtonStack = styled(Stack)({
 const buttonContainer = {
   color: colors.theme1.white,
 };
+const trackContainer = {
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingTop: '50%',
+  color: colors.theme1.darkGreen,
+}
 
 export function HomeScreen() {
     return (
@@ -50,8 +58,14 @@ export function HomeScreen() {
                 </IconButton>
               </ButtonStack>
             </HeaderStack>
-            <Stack direction="column">
-              {data.map((item, index) => <TrackCard key={`trackCard_${index}`} title={item.title} artist={item.artist} rating={item.rating} />)}
+            <Stack direction="column" sx={{...trackContainer}}>
+              {data ? (
+                <>
+                  {data.map((item, index) => <TrackCard key={`trackCard_${index}`} title={item.title} artist={item.artist} rating={item.rating} />)}
+                </>
+              ) : (
+                <Typography>no songs</Typography>
+              )}
             </Stack>
         </Screen>
     )
