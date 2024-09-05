@@ -3,7 +3,7 @@ import {Container} from "@mui/material";
 import { colors } from "../assets/colors";
 
 const container = {
-    backgroundColor: colors.green.primary,
+    backgroundColor: colors.green.green,
     height: '100%',
     padding: '32px 32px',
 }

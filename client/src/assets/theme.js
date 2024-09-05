@@ -4,9 +4,9 @@ import {colors} from './colors';
 export const theme = createTheme({
     palette: {
       primary: {
-        main: colors.green.primary,
-        dark: colors.green.secondary,
-        contrastText: colors.green.text,
+        main: colors.green.green,
+        dark: colors.green.darkGreen,
+        contrastText: colors.green.white,
       }
     }
   });

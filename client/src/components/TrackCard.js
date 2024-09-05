@@ -1,64 +1,71 @@
-import React, { useState } from "react"
-import {Button, Container, Stack, Typography} from "@mui/material";
+import React from "react"
+import {Button, Container, Stack, styled, Typography} from "@mui/material";
 import PropTypes from 'prop-types';
 import { colors } from "../assets/colors";
 import Star from '@mui/icons-material/Star';
 import StarOutline from '@mui/icons-material/StarOutline';
 
-const container = {
-    backgroundColor: colors.green.text,
-    padding: '24px 20px',
-    margin: '8px 0',
-    height: '160px',
-    borderRadius: '5px 5px 0px 0px',
-};
-const content = {
-  height: '100%',
-  width: '100%',
-};
-const buttonText = {
-  color: colors.green.secondary,
-  textAlign: 'left',
-  textTransform: 'lowercase',
-};
-const ratingContainer = {
-  textAlign: 'right',
+const StyledCard = styled(Button)({
+  backgroundColor: colors.green.white,
+  margin: '8px 0',
   padding: '0',
-};
-const ratingButton = {
-  textAlign: 'right',
-};
-
-function StarRating({rating}) {
-  const star = {
-    color: colors.green.secondary,
+  height: '158px',
+  borderRadius: '5px 5px 0px 0px',
+  '.buttonText': {
+    padding: '0 28px',
+    textAlign: 'left',
+    textTransform: 'lowercase',
+  },
+  '.ratingButton': {
+    position: 'absolute',
+    right: '0',
+    bottom: '0',
+    padding: '24px 16px',
+  },
+  ".content": {
+    // backgroundColor: 'red',
+    color: colors.green.darkGreen,
+    height: '100%',
+    width: '100%',
+  },
+  '.content:first-child': {
+    paddingTop: '48px',
+  },
+  '.star': {
+    color: colors.green.darkGreen,
     margin: '-1px',
     padding: '0',
-  };
-
-  return (
-    <>
-      {Array(rating).fill().map(_ => <Star fontSize="small" sx={{...star}} />)}
-      {Array(5-rating).fill().map(_ => <StarOutline fontSize="small" sx={{...star}} />)}
-    </>
-  )
-}
+    fontSize: 'large',
+  },
+  "&:hover": {
+    borderRadius: '5px 5px 0px 0px',
+    backgroundColor: colors.green.darkGreen,
+    color: colors.green.white
+  },
+  "&:hover .buttonText": {
+    color: colors.green.white,
+  },
+  "&:hover .star": {
+    color: colors.green.white,
+  },
+});
 
 export function TrackCard({title, artist, rating}) {
   return (
-    <Button variant="contained" sx={{...container}}>
-      <Stack direction="column" sx={{...content}}>
-        <Container>
-          <Typography variant="h5" fontWeight='bold' sx={{...buttonText}}>{title}</Typography>
-          <Typography variant="h6" fontWeight="normal" sx={{...buttonText}}>{artist}</Typography>
+    // <Button variant="contained" sx={{...container}}>
+    <StyledCard>
+      <Stack direction="column" className="content">
+        <Typography variant="h5" fontWeight='bold' className="buttonText">{title}</Typography>
+        <Typography variant="h6" fontWeight="normal" className="buttonText">{artist}</Typography>
+        <Button className="ratingButton">
+        <Container className="starContainer">
+          {Array(rating).fill().map(_ => <Star className="star" />)}
+          {Array(5-rating).fill().map(_ => <StarOutline className="star" />)}
         </Container>
-        <Container sx={{...ratingContainer}}>
-          <Button sx={{...ratingButton}}>
-            <StarRating rating={rating} />
-          </Button>
-        </Container>
+        </Button>
       </Stack>
-    </Button>
+    </StyledCard>
+    // </Button>
   );
 };
 
