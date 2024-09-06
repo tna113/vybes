@@ -1,8 +1,10 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import pluginReact from "eslint-plugin-react";
+import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
+  eslintConfigPrettier,
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
     rules: {
@@ -18,14 +20,14 @@ export default [
       "no-redeclare": "error",
     },
     plugins: {
-      pluginReact
+      pluginReact,
     },
     ignores: ["./client/assets/*"],
   },
   {
-    languageOptions: { 
-      globals: globals.browser 
-    }
+    languageOptions: {
+      globals: globals.browser,
+    },
   },
   pluginJs.configs.recommended,
   pluginReact.configs.flat.recommended,

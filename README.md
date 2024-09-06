@@ -21,12 +21,15 @@
 ## getting started
 
 1. to run the project, start up the backend
-  - open up a new terminal
-  - `cd` into the `vybes/server` directory
-  - `node index.js`
+
+- open up a new terminal
+- `cd` into the `vybes/server` directory
+- `node index.js`
+
 2. in another terminal, start up the front end
-  - `cd` into the `vubes/client` directory
-  - `npm start`
+
+- `cd` into the `vubes/client` directory
+- `npm start`
 
 ## complications
 
