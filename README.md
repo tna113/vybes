@@ -4,11 +4,11 @@
 
 ## technology
 
-**frontend**: react js, [MUI component library](https://mui.com/)
+**frontend**: react js, [MUI component library](https://mui.com/), [figma](https://www.figma.com/design/7nI86A4ffI1pc5KgJZUElw/vybes?t=XZ1aZAMvym69dKjw-1)
 
 **backend**: node.js, [express](https://github.com/expressjs/express), [axios](https://github.com/axios/axios)
 
-**linter**: eslint
+**linter & formatter**: [eslint](https://eslint.org/), [prettier](https://prettier.io/), [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
 
 **database**: mysql
 
@@ -16,20 +16,18 @@
 
 **tracking**: [trello](https://trello.com/b/u7Q5LDBk/spotifywfriends)
 
-**api**: [swagger.io](https://app.swaggerhub.com/apis/TA7384/spotifywfriendsapi/1.0.0)
-
 ## getting started
 
-1. to run the project, start up the backend
+1. to run the project, first start up the backend
 
-- open up a new terminal
-- `cd` into the `vybes/server` directory
-- `node index.js`
+  - open up a new terminal
+  - `cd` into the root `vybes` directory
+  - `npm run server`
 
-2. in another terminal, start up the front end
+2. then, in another terminal, start up the front end
 
-- `cd` into the `vubes/client` directory
-- `npm start`
+  - `cd` into the root `vybes` directory
+  - `npm run client`
 
 ## complications
 
