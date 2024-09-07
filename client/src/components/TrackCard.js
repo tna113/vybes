@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Container, Stack, styled, Typography } from "@mui/material";
+import { Button, Stack, styled, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import { colors } from "../assets/colors";
 import Star from "@mui/icons-material/Star";
@@ -28,7 +28,7 @@ const StyledCard = styled(Button)({
     height: "100%",
     width: "100%",
   },
-  ".content:first-child": {
+  ".content:first-of-type": {
     paddingTop: "48px",
   },
   ".star": {
@@ -52,7 +52,6 @@ const StyledCard = styled(Button)({
 
 export function TrackCard({ title, artist, rating }) {
   return (
-    // <Button variant="contained" sx={{...container}}>
     <StyledCard>
       <Stack direction="column" className="content">
         <Typography variant="h5" fontWeight="bold" className="buttonText">
@@ -62,22 +61,19 @@ export function TrackCard({ title, artist, rating }) {
           {artist}
         </Typography>
         <Button className="ratingButton">
-          <Container className="starContainer">
-            {Array(rating)
-              .fill()
-              .map((_, index) => (
-                <Star className="star" key={`star_${index}`} />
-              ))}
-            {Array(5 - rating)
-              .fill()
-              .map((_, index) => (
-                <StarOutline className="star" key={`starOutline_${index}`} />
-              ))}
-          </Container>
+          {Array(rating)
+            .fill()
+            .map((_, index) => (
+              <Star className="star" key={`star_${index}`} />
+            ))}
+          {Array(5 - rating)
+            .fill()
+            .map((_, index) => (
+              <StarOutline className="star" key={`starOutline_${index}`} />
+            ))}
         </Button>
       </Stack>
     </StyledCard>
-    // </Button>
   );
 }
 

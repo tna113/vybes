@@ -1,15 +1,15 @@
 import "./App.css";
 import React from "react";
-import { HomeScreen } from "./features/HomeScreen";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "./assets/theme.js";
+import { HomeScreen } from "./screens/HomeScreen";
+import { Container } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <HomeScreen />
-    </ThemeProvider>
+    <Container sx={{ padding: 0 }}>
+      <Routes>
+        <Route path="/" element={<HomeScreen />} />
+      </Routes>
+    </Container>
   );
 }
-
-export default App;

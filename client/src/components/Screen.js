@@ -10,9 +10,8 @@ const container = {
 };
 
 export function Screen({ children, sx }) {
-  // eslint-disable-line react/prop-types
   return (
-    <Container maxWidth sx={{ ...sx, ...container }}>
+    <Container maxWidth="lg" sx={{ ...sx, ...container }}>
       {children}
     </Container>
   );

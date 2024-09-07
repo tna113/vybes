@@ -20,14 +20,14 @@
 
 1. to run the project, first start up the backend
 
-  - open up a new terminal
-  - `cd` into the root `vybes` directory
-  - `npm run server`
+- open up a new terminal
+- `cd` into the root `vybes` directory
+- `npm run server`
 
 2. then, in another terminal, start up the front end
 
-  - `cd` into the root `vybes` directory
-  - `npm run client`
+- `cd` into the root `vybes` directory
+- `npm run client`
 
 ## complications
 
