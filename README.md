@@ -10,9 +10,9 @@
 
 **linter & formatter**: [eslint](https://eslint.org/), [prettier](https://prettier.io/), [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
 
-**database**: mysql
+**database**: [supabase](https://supabase.com/)
 
-**server**: mysql (local)
+**server**: node.js local server
 
 **tracking**: [trello](https://trello.com/b/u7Q5LDBk/spotifywfriends)
 
