@@ -1,12 +1,14 @@
 import express from "express";
 import cors from "cors";
+import supabase from "./supabaseClient.js";
+import 'dotenv/config';
 
 const app = express();
 const port = 8080;
 
 app.use(cors());
 
-console.log(app);
+console.log(supabase);
 
 app.listen(8080, () => {
   console.log("server listening to port", port);
