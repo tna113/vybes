@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import axios from 'axios';
 import {
   styled,
@@ -7,29 +7,13 @@ import {
   IconButton,
   Container,
 } from "@mui/material";
-import { Screen } from "../components/Screen";
-import { TrackCard } from "../components/TrackCard";
+import { Screen } from "../../components/Screen"
+import { TrackCard } from "../../components/TrackCard";
 import Menu from "@mui/icons-material/Menu";
 import Search from "@mui/icons-material/Search";
 import Add from "@mui/icons-material/Add";
-import { colors } from "../assets/colors";
-
-// const apiCall = () => {
-//   axios.get('http://localhost:3000').then((data) => {
-//     console.log(data);
-//   })
-// }
-
-const data = Array(5)
-  .fill()
-  .map((_, index) =>
-    Object.fromEntries([
-      ["title", `track${index + 1}`],
-      ["artist", `artist${index + 1}`],
-      ["rating", index],
-    ]),
-  );
-// const data = undefined;
+import { colors } from "../../assets/colors";
+import axios from "axios";
 
 const HeaderStack = styled(Stack)({
   justifyContent: "space-between",
@@ -54,7 +38,32 @@ const trackContainer = {
   color: colors.theme1.darkGreen,
 };
 
+const fetchPlaylist = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/home');
+    if (response) {
+      return response.data.data;
+    } else {
+      console.log('could not fetch response');
+    }
+  } catch (error) {
+    console.log('error', error);
+  }
+};
+
 export function HomeScreen() {
+  const [tracks, setTracks] = useState([]);
+
+  useEffect(() => {
+    const response = fetchPlaylist();
+    response.then(data => {
+      setTracks(data);
+    })
+    .catch((error) => {
+      console.log('error', error);
+    });
+  }, []);
+
   return (
     <Screen>
       {/* <Button variant="contained" onClick={apiCall}>make api call</Button> */}
@@ -75,20 +84,19 @@ export function HomeScreen() {
         </ButtonStack>
       </HeaderStack>
       <Stack direction="column">
-        {data ? (
+        {tracks.length > 0 ? (
           <>
-            {data.map((item, index) => (
+            {tracks.map((item, index) => (
               <TrackCard
                 key={`trackCard_${index}`}
-                title={item.title}
-                artist={item.artist}
+                title={item.trackName}
                 rating={item.rating}
               />
             ))}
           </>
         ) : (
           <Container sx={{ ...trackContainer }}>
-            <Typography>no songs</Typography>
+            <Typography sx={{ textAlign: 'center'}}>no songs</Typography>
           </Container>
         )}
       </Stack>

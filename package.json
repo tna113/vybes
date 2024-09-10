@@ -31,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/tna113/vybes/issues"
   },
-  "homepage": "https://github.com/tna113/vybes#readme"
+  "homepage": "https://github.com/tna113/vybes#readme",
+  "dependencies": {
+    "axios": "^1.7.7"
+  }
 }
