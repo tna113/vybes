@@ -3,40 +3,61 @@
 `vybes` is a web application designed to track shared songs between friends.
 
 ## technology
-
 **frontend**: react js, [MUI component library](https://mui.com/), [figma](https://www.figma.com/design/7nI86A4ffI1pc5KgJZUElw/vybes?t=XZ1aZAMvym69dKjw-1)
-
 **backend**: node.js, [express](https://github.com/expressjs/express), [axios](https://github.com/axios/axios)
-
 **linter & formatter**: [eslint](https://eslint.org/), [prettier](https://prettier.io/), [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
-
 **database**: [supabase](https://supabase.com/)
-
 **server**: node.js local server
-
 **tracking**: [trello](https://trello.com/b/u7Q5LDBk/spotifywfriends)
 
 ## getting started
+##### install dependencies
+1. create a local copy of this repository on your machine
+2. open a terminal on the root folder and run `npm i`
+3. at the root folder, run `npm run install-backend`
+4. at the root folder, run `npm run install-frontend`
 
-1. to run the project, first start up the backend
+##### set up your `.env` file
+1. create an `.env` file inside the `server` directory (`vybes/server/.env`)
+2. create two variables: `REACT_APP_SUPABASE_URL` and `REACT_APP_ANON_KEY`
+3. your file should look like this:
+```
+REACT_APP_SUPABASE_URL=<supabse url>
+REACT_APP_ANON_KEY=<supabase db key>
+```
 
-- open up a new terminal
-- `cd` into the root `vybes` directory
-- `npm run server`
+##### to run the project, first start up the backend
 
-2. then, in another terminal, start up the front end
+1. open up a new terminal
+2. `cd` into the root `vybes` directory
+3. `npm run server`
 
-- `cd` into the root `vybes` directory
-- `npm run client`
+##### then, in another terminal, start up the front end
 
-## complications
+1. `cd` into the root `vybes` directory
+2. `npm run client`
+3. a browser should open with our application running
+
+#### developer notes
+- ensure you are picking and assigning yourself a task from the [trello board](https://trello.com/b/u7Q5LDBk/vybes)
+- prefix your feature branch with either `feature`, `bug`, `doc`, `style` or `chore`
+  - ie. for developing login ui, the branch name would be `feature/login-ui`
+  - `feature` for task-level tickets
+  - `bug` for bug fixes
+  - `doc` for adding to documentation
+  - `style` for fixing or updating styles
+  - `chore` is a catch-all type of prefix
+- after finishing a task/developing a feature, make sure to create a **PR**
+- **PRs need to be reviewed and approved before merging to the main codebase**
+
+## project complications
 
 - not enough capacity (previous members aren't able to contribute)
 - technology stack limitations (switching from hostgator server to local server)
 - rebranding (to use spotify's API, our app name cannot include 'spotify')
 - mvp changes (since capacity is at a low, mvp needs to change in order to meet end of the year 'deadline')
 
-## MVP
+####  MVP (revised)
 
 - must use, implement and get song data from spotify api
 - search for a song (track) using spotify api
@@ -58,7 +79,7 @@
 - separate business, logic and presentation layers
 - create a comprehensive documentation/user-guide
 
-### wishlist/next
+##### wishlist/next
 
 - create logo
 - additional themes
@@ -69,7 +90,7 @@
 - custom name for shared playlists
 - edit a shared playlist
 
-### future features
+##### future features
 
 - sorting
 - filtering
