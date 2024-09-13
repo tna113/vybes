@@ -91,6 +91,7 @@ export function HomeScreen() {
                 key={`trackCard_${index}`}
                 title={item.trackName}
                 rating={item.rating}
+                artist={item.artist.artistName}
               />
             ))}
           </>

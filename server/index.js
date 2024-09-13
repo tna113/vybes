@@ -22,7 +22,15 @@ app.get("/", (req, res) => {
 app.get("/home", async (req, res) => {
   const {data, error} = await supabase
     .from('track')
-    .select() //fetch all
+    .select(`
+       trackName,
+       rating,
+       genre,
+       comments,
+       dateAdded,
+       artistId,
+       artist (artistId, artistName)
+      `)
     
   if (error) {
     console.log('error', error);
