@@ -1,53 +1,65 @@
 import React, { useEffect, useState } from "react";
-// import axios from 'axios';
-import {
-  styled,
-  Stack,
-  Typography,
-  IconButton,
-  Container,
-} from "@mui/material";
-import { Screen } from "../../components/Screen"
+import { styled, Stack, Typography, Container } from "@mui/material";
+import { Screen } from "../../components/Screen";
 import { TrackCard } from "../../components/TrackCard";
-import Menu from "@mui/icons-material/Menu";
-import Search from "@mui/icons-material/Search";
-import Add from "@mui/icons-material/Add";
+import Circle from "@mui/icons-material/Circle";
 import { colors } from "../../assets/colors";
 import axios from "axios";
 
 const HeaderStack = styled(Stack)({
+  padding: " 0px 16px 32px 16px",
+  alignItems: "flex-end",
   justifyContent: "space-between",
-  marginBottom: "24px",
-  textTransform: "uppercase",
+  backgroundColor: colors.theme1.green,
   color: colors.theme1.white,
-  "& .title": {
+  minHeight: "160px",
+  ".content": {
+    height: "58px",
+  },
+  ".headerContent": {
     paddingLeft: "8px",
+  },
+  ".title": {
+    textTransform: "lowercase",
   },
 });
 const ButtonStack = styled(Stack)({
+  display: "flex",
   alignItems: "center",
+  justifyContent: "center",
+  zIndex: "0",
+  ".buttonBackground": {
+    zIndex: 0,
+  },
+  ".buttonLetter": {
+    color: colors.theme1.darkGreen,
+    position: "absolute",
+    zIndex: "1",
+  },
 });
-const buttonContainer = {
-  color: colors.theme1.white,
+const tracksContainer = {
+  padding: "8px 16px",
 };
-const trackContainer = {
+const hintContainer = {
   flex: 1,
   alignItems: "center",
   justifyContent: "center",
   paddingTop: "50%",
-  color: colors.theme1.darkGreen,
+};
+const hint = {
+  color: colors.theme1.darkerGreen,
 };
 
 const fetchPlaylist = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/home');
+    const response = await axios.get("http://localhost:8080/home");
     if (response) {
       return response.data.data;
     } else {
-      console.log('could not fetch response');
+      console.log("could not fetch response");
     }
   } catch (error) {
-    console.log('error', error);
+    console.log("error", error);
   }
 };
 
@@ -56,34 +68,32 @@ export function HomeScreen() {
 
   useEffect(() => {
     const response = fetchPlaylist();
-    response.then(data => {
-      setTracks(data);
-    })
-    .catch((error) => {
-      console.log('error', error);
-    });
+    response
+      .then((data) => {
+        setTracks(data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   }, []);
 
   return (
     <Screen>
-      {/* <Button variant="contained" onClick={apiCall}>make api call</Button> */}
-      <IconButton sx={{ ...buttonContainer }}>
-        <Menu sx={{ fontSize: 32 }} />
-      </IconButton>
       <HeaderStack direction="row">
-        <Typography variant="h4" fontWeight="bold" className="title">
-          playlist
-        </Typography>
-        <ButtonStack direction="row">
-          <IconButton sx={{ ...buttonContainer }}>
-            <Search />
-          </IconButton>
-          <IconButton sx={{ ...buttonContainer }}>
-            <Add />
-          </IconButton>
+        <Stack direction="column" className="content headerContent">
+          <Typography variant="h4" fontWeight="300" className="title">
+            playlistname
+          </Typography>
+          <Typography variant="body3" fontWeight={200}>
+            {tracks.length} songs
+          </Typography>
+        </Stack>
+        <ButtonStack direction="row" className="content">
+          <Circle fontSize="large" className="buttonBackground" />
+          <Typography class="buttonLetter">T</Typography>
         </ButtonStack>
       </HeaderStack>
-      <Stack direction="column">
+      <Stack direction="column" sx={{ ...tracksContainer }}>
         {tracks.length > 0 ? (
           <>
             {tracks.map((item, index) => (
@@ -92,12 +102,17 @@ export function HomeScreen() {
                 title={item.trackName}
                 rating={item.rating}
                 artist={item.artist.artistName}
+                genre={item.genre}
+                comments={item.comments}
+                dateAdded={item.dateAdded.toString()}
               />
             ))}
           </>
         ) : (
-          <Container sx={{ ...trackContainer }}>
-            <Typography sx={{ textAlign: 'center'}}>no songs</Typography>
+          <Container sx={{ ...tracksContainer, ...hintContainer }}>
+            <Typography sx={{ textAlign: "center", ...hint }}>
+              no songs
+            </Typography>
           </Container>
         )}
       </Stack>

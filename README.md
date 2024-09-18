@@ -3,6 +3,7 @@
 `vybes` is a web application designed to track shared songs between friends.
 
 ## technology
+
 **frontend**: react js, [MUI component library](https://mui.com/), [figma](https://www.figma.com/design/7nI86A4ffI1pc5KgJZUElw/vybes?t=XZ1aZAMvym69dKjw-1)
 **backend**: node.js, [express](https://github.com/expressjs/express), [axios](https://github.com/axios/axios)
 **linter & formatter**: [eslint](https://eslint.org/), [prettier](https://prettier.io/), [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
@@ -11,16 +12,20 @@
 **tracking**: [trello](https://trello.com/b/u7Q5LDBk/spotifywfriends)
 
 ## getting started
+
 ##### install dependencies
+
 1. create a local copy of this repository on your machine
 2. open a terminal on the root folder and run `npm i`
 3. at the root folder, run `npm run install-backend`
 4. at the root folder, run `npm run install-frontend`
 
 ##### set up your `.env` file
+
 1. create an `.env` file inside the `server` directory (`vybes/server/.env`)
 2. create two variables: `REACT_APP_SUPABASE_URL` and `REACT_APP_ANON_KEY`
 3. your file should look like this:
+
 ```
 REACT_APP_SUPABASE_URL=<supabse url>
 REACT_APP_ANON_KEY=<supabase db key>
@@ -39,6 +44,7 @@ REACT_APP_ANON_KEY=<supabase db key>
 3. a browser should open with our application running
 
 #### developer notes
+
 - ensure you are picking and assigning yourself a task from the [trello board](https://trello.com/b/u7Q5LDBk/vybes)
 - prefix your feature branch with either `feature`, `bug`, `doc`, `style` or `chore`
   - ie. for developing login ui, the branch name would be `feature/login-ui`
@@ -57,7 +63,7 @@ REACT_APP_ANON_KEY=<supabase db key>
 - rebranding (to use spotify's API, our app name cannot include 'spotify')
 - mvp changes (since capacity is at a low, mvp needs to change in order to meet end of the year 'deadline')
 
-####  MVP (revised)
+#### MVP (revised)
 
 - must use, implement and get song data from spotify api
 - search for a song (track) using spotify api

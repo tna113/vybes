@@ -4,9 +4,9 @@ import { colors } from "../assets/colors";
 import PropTypes from "prop-types";
 
 const container = {
-  backgroundColor: colors.theme1.green,
+  backgroundColor: colors.theme1.darkGreen,
   minHeight: "100vh",
-  padding: "32px 32px",
+  padding: "0",
 };
 
 export function Screen({ children, sx }) {

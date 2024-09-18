@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import supabase from "./supabaseClient.js";
-import 'dotenv/config';
+import "dotenv/config";
 
 const app = express();
 const port = 8080;
@@ -20,9 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/home", async (req, res) => {
-  const {data, error} = await supabase
-    .from('track')
-    .select(`
+  const { data, error } = await supabase.from("track").select(`
        trackName,
        rating,
        genre,
@@ -30,15 +28,15 @@ app.get("/home", async (req, res) => {
        dateAdded,
        artistId,
        artist (artistId, artistName)
-      `)
-    
+      `);
+
   if (error) {
-    console.log('error', error);
+    console.log("error", error);
   } else {
-    console.log('successful', data);
+    console.log("successful", data);
     return res.status(201).json({
       data: data,
-      message: 'successfully fetched all songs',
+      message: "successfully fetched all songs",
     });
   }
 });

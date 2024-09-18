@@ -1,78 +1,96 @@
 import React from "react";
-import { Button, Stack, styled, Typography } from "@mui/material";
+import { Button, Container, Stack, styled, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import { colors } from "../assets/colors";
-import Star from "@mui/icons-material/Star";
-import StarOutline from "@mui/icons-material/StarOutline";
+import Circle from "@mui/icons-material/Circle";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const StyledCard = styled(Button)({
-  backgroundColor: colors.theme1.white,
-  margin: "8px 0",
-  padding: "0",
-  height: "158px",
+  gridTemplateRows: "32px auto 32px",
+  height: "80px",
+  maxWidth: "400px",
   borderRadius: "5px 5px 0px 0px",
+  ".icon": {
+    width: "32px",
+  },
+  ".ratingContainer": {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: "0",
+  },
+  ".ratingIcon": {
+    color: colors.theme1.darkerGreen,
+  },
+  ".ratingValue": {
+    color: colors.theme1.darkGreen,
+    position: "absolute",
+    zIndex: "1",
+    top: "28px",
+  },
+  ".content": {
+    width: "100%",
+  },
+  ".titleText": {
+    color: colors.theme1.white,
+  },
+  ".subtitleText": {
+    color: colors.theme1.white60,
+  },
   ".buttonText": {
-    padding: "0 28px",
+    padding: "0 16px",
     textAlign: "left",
     textTransform: "lowercase",
   },
-  ".ratingButton": {
-    position: "absolute",
-    right: "0",
-    bottom: "0",
-    padding: "24px 16px",
-  },
-  ".content": {
-    // backgroundColor: 'red',
-    color: colors.theme1.darkGreen,
-    height: "100%",
-    width: "100%",
-  },
-  ".content:first-of-type": {
-    paddingTop: "48px",
-  },
-  ".star": {
-    color: colors.theme1.darkGreen,
-    margin: "-1px",
-    padding: "0",
-    fontSize: "large",
+  ".menuIcon": {
+    color: colors.theme1.white,
   },
   "&:hover": {
     borderRadius: "5px 5px 0px 0px",
-    backgroundColor: colors.theme1.darkGreen,
     color: colors.theme1.white,
   },
   "&:hover .buttonText": {
     color: colors.theme1.white,
   },
-  "&:hover .star": {
-    color: colors.theme1.white,
-  },
 });
 
-export function TrackCard({ title, artist, rating }) {
+function handleOnClick() {}
+
+export function TrackCard({
+  title,
+  artist,
+  rating,
+  genre,
+  // comments,
+  // dateAdded,
+}) {
   return (
-    <StyledCard>
-      <Stack direction="column" className="content">
-        <Typography variant="h5" fontWeight="bold" className="buttonText">
+    <StyledCard onClick={() => handleOnClick()}>
+      <Container className="ratingContainer icon">
+        <Circle fontSize="large" className="ratingIcon" />
+        <Typography className="ratingValue">{rating}</Typography>
+      </Container>
+
+      <Stack direction="column" className="content" spacing={-0.5}>
+        <Typography
+          variant="h6"
+          fontWeight="bold"
+          className="buttonText titleText"
+        >
           {title}
         </Typography>
-        <Typography variant="h6" fontWeight="normal" className="buttonText">
-          {artist}
+        <Typography
+          variant="body2"
+          fontWeight="normal"
+          className="buttonText subtitleText"
+        >
+          {artist} • {genre ? genre : ""}
         </Typography>
-        <Button className="ratingButton">
-          {Array(rating)
-            .fill()
-            .map((_, index) => (
-              <Star className="star" key={`star_${index}`} />
-            ))}
-          {Array(5 - rating)
-            .fill()
-            .map((_, index) => (
-              <StarOutline className="star" key={`starOutline_${index}`} />
-            ))}
-        </Button>
       </Stack>
+
+      <Container className="icon">
+        <MoreVertIcon className="menuIcon" />
+      </Container>
     </StyledCard>
   );
 }
@@ -81,4 +99,7 @@ TrackCard.propTypes = {
   title: PropTypes.string.isRequired,
   artist: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
+  genre: PropTypes.string.isRequired,
+  comments: PropTypes.object.isRequired,
+  dateAdded: PropTypes.string.isRequired,
 };
