@@ -8,8 +8,9 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 const StyledCard = styled(Button)({
   gridTemplateRows: "32px auto 32px",
   height: "80px",
-  maxWidth: "400px",
+  width: "400px",
   borderRadius: "5px 5px 0px 0px",
+  padding: '0px 16px',
   ".icon": {
     width: "32px",
   },

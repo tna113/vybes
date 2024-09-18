@@ -41,7 +41,8 @@ const ButtonStack = styled(Stack)({
   },
 });
 const tracksContainer = {
-  padding: "8px 16px",
+  alignItems: 'center',
+  padding: "8px",
 };
 const hintContainer = {
   flex: 1,
@@ -96,7 +97,7 @@ export function HomeScreen() {
           <Typography class="buttonLetter">T</Typography>
         </ButtonStack>
       </HeaderStack>
-      <Stack direction="column" sx={{ ...tracksContainer }}>
+      <Stack direction="column" sx={{ ...tracksContainer}}>
         {tracks.length > 0 ? (
           <>
             {tracks.map((item, index) => (
