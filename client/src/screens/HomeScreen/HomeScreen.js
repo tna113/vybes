@@ -22,6 +22,9 @@ const HeaderStack = styled(Stack)({
   ".title": {
     textTransform: "lowercase",
   },
+  ".subtitle":{
+    color: colors.theme1.white60,
+  },
 });
 const ButtonStack = styled(Stack)({
   display: "flex",
@@ -84,7 +87,7 @@ export function HomeScreen() {
           <Typography variant="h4" fontWeight="300" className="title">
             playlistname
           </Typography>
-          <Typography variant="body3" fontWeight={200}>
+          <Typography variant="body3" fontWeight={200} className="subtitle">
             {tracks.length} songs
           </Typography>
         </Stack>
