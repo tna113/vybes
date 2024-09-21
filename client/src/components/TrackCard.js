@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Container, Stack, styled, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import { colors } from "../assets/colors";
-import Circle from "@mui/icons-material/Circle";
+import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const StyledCard = styled(Button)({
@@ -10,7 +10,7 @@ const StyledCard = styled(Button)({
   height: "80px",
   width: "400px",
   borderRadius: "5px 5px 0px 0px",
-  padding: '0px 16px',
+  padding: "0px 16px",
   ".icon": {
     width: "32px",
   },
@@ -23,11 +23,12 @@ const StyledCard = styled(Button)({
   ".ratingIcon": {
     color: colors.theme1.darkerGreen,
   },
-  ".ratingValue": {
+  ".ratingText": {
     color: colors.theme1.darkGreen,
     position: "absolute",
     zIndex: "1",
-    top: "28px",
+    top: "32px",
+    fontSize: "12px",
   },
   ".content": {
     width: "100%",
@@ -55,21 +56,12 @@ const StyledCard = styled(Button)({
   },
 });
 
-function handleOnClick() {}
-
-export function TrackCard({
-  title,
-  artist,
-  rating,
-  genre,
-  // comments,
-  // dateAdded,
-}) {
+export function TrackCard({ title, artist, rating, genre, onPress }) {
   return (
-    <StyledCard onClick={() => handleOnClick()}>
+    <StyledCard onClick={onPress}>
       <Container className="ratingContainer icon">
-        <Circle fontSize="large" className="ratingIcon" />
-        <Typography className="ratingValue">{rating}</Typography>
+        <StarRoundedIcon fontSize="large" className="ratingIcon" />
+        <Typography className="ratingText">{rating}</Typography>
       </Container>
 
       <Stack direction="column" className="content" spacing={-0.5}>
@@ -101,6 +93,5 @@ TrackCard.propTypes = {
   artist: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
   genre: PropTypes.string.isRequired,
-  comments: PropTypes.object.isRequired,
-  dateAdded: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
 };

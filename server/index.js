@@ -21,14 +21,13 @@ app.get("/", (req, res) => {
 
 app.get("/home", async (req, res) => {
   const { data, error } = await supabase.from("track").select(`
-       trackName,
-       rating,
-       genre,
-       comments,
-       dateAdded,
-       artistId,
-       artist (artistId, artistName)
-      `);
+    trackId,
+    trackName,
+    rating,
+    genre,
+    artistId,
+    artist (artistId, artistName)
+  `);
 
   if (error) {
     console.log("error", error);
@@ -37,6 +36,28 @@ app.get("/home", async (req, res) => {
     return res.status(201).json({
       data: data,
       message: "successfully fetched all songs",
+    });
+  }
+});
+
+app.get("/detail/", async (req, res) => {
+  const trackId = parseInt(req.params.trackId);
+  const { data, error } = await supabase.from("track").select(`
+    trackName,
+    rating,
+    genre,
+    comments,
+    dateAdded,
+    artistId,
+    artist (artistId, artistName)
+  `);
+
+  if (error) {
+    console.log("error", error);
+  } else {
+    return res.status(201).json({
+      data: data,
+      message: `successfully fetched track ${trackid}`,
     });
   }
 });

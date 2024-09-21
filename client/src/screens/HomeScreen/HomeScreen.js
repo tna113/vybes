@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { styled, Stack, Typography, Container } from "@mui/material";
 import { Screen } from "../../components/Screen";
 import { TrackCard } from "../../components/TrackCard";
-import Circle from "@mui/icons-material/Circle";
 import { colors } from "../../assets/colors";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import ProfileIcon from "../../components/ProfileIcon";
 
 const HeaderStack = styled(Stack)({
   padding: " 0px 16px 32px 16px",
@@ -22,26 +23,12 @@ const HeaderStack = styled(Stack)({
   ".title": {
     textTransform: "lowercase",
   },
-  ".subtitle":{
+  ".subtitle": {
     color: colors.theme1.white60,
   },
 });
-const ButtonStack = styled(Stack)({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  zIndex: "0",
-  ".buttonBackground": {
-    zIndex: 0,
-  },
-  ".buttonLetter": {
-    color: colors.theme1.darkGreen,
-    position: "absolute",
-    zIndex: "1",
-  },
-});
 const tracksContainer = {
-  alignItems: 'center',
+  alignItems: "center",
   padding: "8px",
 };
 const hintContainer = {
@@ -69,6 +56,7 @@ const fetchPlaylist = async () => {
 
 export function HomeScreen() {
   const [tracks, setTracks] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const response = fetchPlaylist();
@@ -92,12 +80,9 @@ export function HomeScreen() {
             {tracks.length} songs
           </Typography>
         </Stack>
-        <ButtonStack direction="row" className="content">
-          <Circle fontSize="large" className="buttonBackground" />
-          <Typography class="buttonLetter">T</Typography>
-        </ButtonStack>
+        <ProfileIcon name="thea" />
       </HeaderStack>
-      <Stack direction="column" sx={{ ...tracksContainer}}>
+      <Stack direction="column" sx={{ ...tracksContainer }}>
         {tracks.length > 0 ? (
           <>
             {tracks.map((item, index) => (
@@ -107,8 +92,7 @@ export function HomeScreen() {
                 rating={item.rating}
                 artist={item.artist.artistName}
                 genre={item.genre}
-                comments={item.comments}
-                dateAdded={item.dateAdded.toString()}
+                onPress={() => navigate("/detail", { state: item.trackId })}
               />
             ))}
           </>

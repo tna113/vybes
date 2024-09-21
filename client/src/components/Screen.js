@@ -4,14 +4,20 @@ import { colors } from "../assets/colors";
 import PropTypes from "prop-types";
 
 const container = {
-  backgroundColor: colors.theme1.darkGreen,
   minHeight: "100vh",
   padding: "0",
 };
 
-export function Screen({ children, sx }) {
+export function Screen({ children, sx, color }) {
   return (
-    <Container maxWidth="lg" sx={{ ...sx, ...container }}>
+    <Container
+      maxWidth="lg"
+      sx={{
+        ...sx,
+        ...container,
+        backgroundColor: color ? color : colors.theme1.darkGreen,
+      }}
+    >
       {children}
     </Container>
   );
@@ -20,4 +26,5 @@ export function Screen({ children, sx }) {
 Screen.propTypes = {
   children: PropTypes.node,
   sx: PropTypes.object,
+  color: PropTypes.string,
 };
