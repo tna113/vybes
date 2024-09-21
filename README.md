@@ -68,7 +68,7 @@ REACT_APP_ANON_KEY=<supabase db key>
 - must use, implement and get song data from spotify api
 - search for a song (track) using spotify api
 - show a list of search results from spotify api
-- show a list of songs inside shared playlist
+- ✓ show a list of songs inside shared playlist
 - add a song to the shared playlist
 - add a song's rating (out of 5 stars)
 - add a song's note
@@ -77,13 +77,17 @@ REACT_APP_ANON_KEY=<supabase db key>
 - delete a song's note
 - edit a song's rating
 - edit a song's note
-- show a single song with its rating and note (if any)
-- show a single shared playlist
+- ✓ show a single song with its rating and note (if any)
+- ✓ show a single shared playlist
 - implement error handling where needed
-- create and implement a cohesive theme throughout the application
+- ✓ create and implement a cohesive theme throughout the application
 - ensure best ux/ui and accessibility practices
-- separate business, logic and presentation layers
+- ✓ separate business, logic and presentation layers
 - create a comprehensive documentation/user-guide
+  - ✓ informative github readme
+  - ✓ developer notes
+  - comprehensive project wiki (confluence?)
+  - feature documentation (TBD)
 
 ##### wishlist/next
 
