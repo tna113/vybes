@@ -30,7 +30,7 @@ app.get("/home", async (req, res) => {
   `);
 
   if (error) {
-    console.log("error", error);
+    console.log("could not fetch playlist", error);
   } else {
     console.log("successful", data);
     return res.status(201).json({
@@ -53,7 +53,7 @@ app.get("/detail/", async (req, res) => {
   `);
 
   if (error) {
-    console.log("error", error);
+    console.log("could not fetch track", error);
   } else {
     return res.status(201).json({
       data: data,

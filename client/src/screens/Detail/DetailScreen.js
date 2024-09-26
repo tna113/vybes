@@ -3,12 +3,15 @@ import {
   Button,
   ButtonBase,
   Container,
+  FormControl,
+  Input,
+  InputLabel,
   Stack,
   Typography,
   styled,
 } from "@mui/material";
 import { Screen } from "../../components/Screen";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -112,13 +115,37 @@ const commentsData = {
   ],
 };
 
-export default function DetailScreen() {
-    const navigate = useNavigate();
+const Footer = styled(FormControl)({
+  backgroundColor: colors.theme1.darkGreen,
+  position: "absolute",
+  bottom: "-8px",
+  paddingBottom: "16px",
+  ".text": {
+    color: colors.theme1.darkerGreen,
+  },
+  ".button": {
+    backgroundColor: "blue",
+    width: "32px",
+    height: "32px",
+  },
+  ".input": {
+    marginRight: "16px",
+    marginLeft: "16px",
+    paddingTop: "8px",
+  },
+  ".inputLabel": {
+    padding: "0px 20px",
+    paddingTop: "8px",
+  },
+});
 
-// TODO: get track id from navigation params to query for the track
-// or we can store this in cookies? cookie best practices?
-//   const data = useLocation();
-//   const trackId = data.state;
+export default function DetailScreen() {
+  const navigate = useNavigate();
+
+  // TODO: get track id from navigation params to query for the track
+  // or we can store this in cookies? cookie best practices?
+  //   const data = useLocation();
+  //   const trackId = data.state;
 
   //TODO: implement checking user state
   const isCurrentUser = (id) => {
@@ -191,6 +218,11 @@ export default function DetailScreen() {
             ))}
           </>
         </CommentsContainer>
+
+        <Footer fullWidth sx={{ s: 1 }} variant="standard" margin="normal">
+          <InputLabel className="inputLabel">add comment here...</InputLabel>
+          <Input className="input" />
+        </Footer>
       </TrackContainer>
     </Screen>
   );

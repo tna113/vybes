@@ -6,12 +6,13 @@ import PropTypes from "prop-types";
 const container = {
   minHeight: "100vh",
   padding: "0",
+  margin: "0",
 };
 
 export function Screen({ children, sx, color }) {
   return (
     <Container
-      maxWidth="lg"
+      // maxWidth="lg"
       sx={{
         ...sx,
         ...container,
