@@ -40,24 +40,28 @@ app.get("/home", async (req, res) => {
   }
 });
 
-app.get("/detail/", async (req, res) => {
-  const trackId = parseInt(req.params.trackId);
-  const { data, error } = await supabase.from("track").select(`
-    trackName,
-    rating,
-    genre,
-    comments,
-    dateAdded,
-    artistId,
-    artist (artistId, artistName)
-  `);
+// app.get("/detail/", async (req, res) => {
+//   const trackId = parseInt(req.params.trackId);
+//   const { data, error } = await supabase.from("track").select(`
+//     trackName,
+//     rating,
+//     genre,
+//     comments,
+//     dateAdded,
+//     artistId,
+//     artist (artistId, artistName)
+//   `);
 
-  if (error) {
-    console.log("could not fetch track", error);
-  } else {
-    return res.status(201).json({
-      data: data,
-      message: `successfully fetched track ${trackid}`,
-    });
-  }
+//   if (error) {
+//     console.log("could not fetch track", error);
+//   } else {
+//     return res.status(201).json({
+//       data: data,
+//       message: `successfully fetched track ${trackid}`,
+//     });
+//   }
+// });
+
+app.post("/detail/comment", async (req, res) => {
+  const { trackId, comment } = req.body;
 });

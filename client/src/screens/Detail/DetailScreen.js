@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   ButtonBase,
@@ -18,6 +18,8 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { colors } from "../../assets/colors";
 import { useNavigate } from "react-router-dom";
 import ProfileIcon from "../../components/ProfileIcon";
+import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import parseComments from "../../utils/parseComments";
 
 const DetailHeader = styled(Container)({
   height: "360px",
@@ -137,10 +139,16 @@ const Footer = styled(FormControl)({
     padding: "0px 20px",
     paddingTop: "8px",
   },
+  ".sendButton": {
+    position: 'absolute',
+    right: '0',
+    bottom: '16px',
+  },
 });
 
 export default function DetailScreen() {
   const navigate = useNavigate();
+  const [newComment, setNewComment] = useState("");
 
   // TODO: get track id from navigation params to query for the track
   // or we can store this in cookies? cookie best practices?
@@ -156,6 +164,17 @@ export default function DetailScreen() {
     }
     return false;
   };
+
+  const handleCommentChange = (event) => {
+    setNewComment(event.target.value);
+  };
+
+  const handleAddComment = () => {
+    const commentsJSON = parseComments(commentsData, newComment)
+    console.log(commentsJSON);
+    //send comment
+    //refetch comments list (useEffect)
+  }
 
   return (
     <Screen color={colors.theme1.green}>
@@ -221,8 +240,11 @@ export default function DetailScreen() {
 
         <Footer fullWidth sx={{ s: 1 }} variant="standard" margin="normal">
           <InputLabel className="inputLabel">add comment here...</InputLabel>
-          <Input className="input" />
-        </Footer>
+          <Input disableUnderline className="input" onChange={(event) => handleCommentChange(event)} />
+          <Button className="sendButton" onClick={() => handleAddComment()}>
+            <SendRoundedIcon />
+          </Button>
+          </Footer>
       </TrackContainer>
     </Screen>
   );
