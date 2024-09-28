@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Button,
   ButtonBase,
@@ -11,7 +11,7 @@ import {
   styled,
 } from "@mui/material";
 import { Screen } from "../../components/Screen";
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -20,6 +20,8 @@ import { useNavigate } from "react-router-dom";
 import ProfileIcon from "../../components/ProfileIcon";
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import parseComments from "../../utils/parseComments";
+import axios from "axios";
+import parseDate from "../../utils/parseDate";
 
 const DetailHeader = styled(Container)({
   height: "360px",
@@ -96,26 +98,26 @@ const CommentItem = styled(Stack)({
   },
 });
 
-const commentsData = {
-  comments: [
-    {
-      userId: 1,
-      username: "thea",
-      comment:
-        "some comment here thats really really long jsut to see what it would look like on the screen cause of user experience and aesthetic and things like that you know waht i mean",
-    },
-    {
-      userId: 2,
-      username: "han",
-      comment: "and a one line to reply",
-    },
-    {
-      userId: 2,
-      username: "han",
-      comment: "and another one",
-    },
-  ],
-};
+// const commentsData = {
+//   comments: [
+//     {
+//       userId: 1,
+//       username: "thea",
+//       comment:
+//         "some comment here thats really really long jsut to see what it would look like on the screen cause of user experience and aesthetic and things like that you know waht i mean",
+//     },
+//     {
+//       userId: 2,
+//       username: "han",
+//       comment: "and a one line to reply",
+//     },
+//     {
+//       userId: 2,
+//       username: "han",
+//       comment: "and another one",
+//     },
+//   ],
+// };
 
 const Footer = styled(FormControl)({
   backgroundColor: colors.theme1.darkGreen,
@@ -150,15 +152,46 @@ export default function DetailScreen() {
   const navigate = useNavigate();
   const [newComment, setNewComment] = useState("");
 
-  // TODO: get track id from navigation params to query for the track
-  // or we can store this in cookies? cookie best practices?
-  //   const data = useLocation();
-  //   const trackId = data.state;
+  const data = useLocation();
+  const trackId = data.state;
+  const [track, setTrack] = useState({});
+  const [commentsData, setCommentsData] = useState([]);
+
+  //TODO: export into separate util function
+    const fetchTrack = useCallback(async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/detail', {
+          params: {
+            trackId: trackId,
+          }
+        });
+        if (response) {
+          return response.data.data;
+        } else {
+          console.log('could not fetch track')
+        }
+      } catch (error) {
+        console.log('error', error);
+      }
+    }, [trackId]);
+
+    useEffect(() => {
+      console.log('fetching track',trackId);
+      const response = fetchTrack();
+      response
+      .then((data) => {
+        setTrack(data[0]);
+        setCommentsData(data[0].comments.comments ?? []);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [trackId]);
 
   //TODO: implement checking user state
   const isCurrentUser = (id) => {
     const currentUserId = 1;
-
     if (id === currentUserId) {
       return true;
     }
@@ -196,13 +229,13 @@ export default function DetailScreen() {
       <TrackContainer>
         <Stack direction="column" spacing={-0.5}>
           <Typography variant="h4" fontWeight="bold" className="title">
-            track name
+            {track.trackName}
           </Typography>
           <Typography variant="h6" fontWeight="regular" className="subtitle">
-            artist name • alternative
+            {track.artistName ?? 'artist name'} • {track.genre}
           </Typography>
           <Typography variant="body3" className="caption">
-            added on sep 20 2024
+            added on {track.dateAdded && parseDate(track.dateAdded)}
           </Typography>
         </Stack>
 
@@ -220,7 +253,7 @@ export default function DetailScreen() {
             </Button>
           </Stack>
           <>
-            {commentsData.comments.map((item, index) => (
+            {commentsData.map((item, index) => (
               <CommentItem direction="row" key={`comment-${index}`}>
                 <ProfileIcon
                   name={item.username}

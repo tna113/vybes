@@ -67,7 +67,7 @@ export function HomeScreen() {
       .catch((error) => {
         console.log("error", error);
       });
-  }, []);
+  }, [tracks]);
 
   return (
     <Screen>
