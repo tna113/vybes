@@ -31,25 +31,20 @@ app.get("/home", async (req, res) => {
   `);
 
   if (error) {
+    console.log('debug', error);
     return res.status(500).json({
-      data: error,
+      playlist: [],
       message: "could not fetch playlist",
-    })
-  } else {
-    console.log("successful", data);
-    return res.status(201).json({
-      data: data,
-      message: "successfully fetched all songs",
     });
   }
+  return res.status(201).json({
+    playlist: data,
+    message: "successfully fetched all songs",
+  });
 });
 
 app.get("/detail", async (req, res) => {
-  // console.log('req.params', req.params);
-  // console.log('req.params.trackId', trackId);
-
-  // const trackId = parseInt(req.params.trackId);
-  const trackId = 1;
+  const {trackId} = req.query;
 
   const { data, error } = await supabase.from("track").select(`
     trackName,
@@ -63,12 +58,12 @@ app.get("/detail", async (req, res) => {
 
   if (error) {
     return res.status(500).json({
-      data: error,
+      error: {},
       message: `could not fetch track with trackId: ${trackId}`,
     })
   } else {
     return res.status(201).json({
-      data: data,
+      track: data[0],
       message: `successfully fetched track ${trackId}`,
     });
   }

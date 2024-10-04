@@ -98,26 +98,6 @@ const CommentItem = styled(Stack)({
   },
 });
 
-// const commentsData = {
-//   comments: [
-//     {
-//       userId: 1,
-//       username: "thea",
-//       comment:
-//         "some comment here thats really really long jsut to see what it would look like on the screen cause of user experience and aesthetic and things like that you know waht i mean",
-//     },
-//     {
-//       userId: 2,
-//       username: "han",
-//       comment: "and a one line to reply",
-//     },
-//     {
-//       userId: 2,
-//       username: "han",
-//       comment: "and another one",
-//     },
-//   ],
-// };
 
 const Footer = styled(FormControl)({
   backgroundColor: colors.theme1.darkGreen,
@@ -148,6 +128,43 @@ const Footer = styled(FormControl)({
   },
 });
 
+//TODO: export into separate util function, store in cookies?
+const fetchTrack = async (trackId) => {
+  const axiosConfig = {
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    }
+  };
+  const params = {
+    trackId: trackId,
+  };
+
+  try {
+    const response = await axios.get('http://localhost:8080/detail', {
+      params,
+      axiosConfig,
+    });
+
+    if (response) {
+      console.log('comments', response.data.track.comments.comments);
+
+      return {
+        trackName: response.data.track.trackName,
+        artistName: response.data.track.artist.artistName,
+        dateAdded: response.data.track.dateAdded,
+        comments: response.data.track.comments.comments,
+      }
+    } else {
+      console.log("could not fetch track");
+      return {};
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+
+
 export default function DetailScreen() {
   const navigate = useNavigate();
   const [newComment, setNewComment] = useState("");
@@ -157,35 +174,15 @@ export default function DetailScreen() {
   const [track, setTrack] = useState({});
   const [commentsData, setCommentsData] = useState([]);
 
-  //TODO: export into separate util function
-    const fetchTrack = useCallback(async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/detail', {
-          params: {
-            trackId: trackId,
-          }
-        });
-        if (response) {
-          return response.data.data;
-        } else {
-          console.log('could not fetch track')
-        }
-      } catch (error) {
-        console.log('error', error);
-      }
-    }, [trackId]);
-
     useEffect(() => {
-      console.log('fetching track',trackId);
-      const response = fetchTrack();
-      response
-      .then((data) => {
-        setTrack(data[0]);
-        setCommentsData(data[0].comments.comments ?? []);
+      const response = fetchTrack(trackId);
+      response.then((data) => {
+        setTrack(data);
+        setCommentsData(data.comments)
       })
       .catch((error) => {
         console.log("error", error);
-      })
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [trackId]);
 
@@ -229,7 +226,7 @@ export default function DetailScreen() {
       <TrackContainer>
         <Stack direction="column" spacing={-0.5}>
           <Typography variant="h4" fontWeight="bold" className="title">
-            {track.trackName}
+            {track.trackName ?? 'trackName'}
           </Typography>
           <Typography variant="h6" fontWeight="regular" className="subtitle">
             {track.artistName ?? 'artist name'} • {track.genre}

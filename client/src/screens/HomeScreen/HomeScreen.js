@@ -45,9 +45,9 @@ const fetchPlaylist = async () => {
   try {
     const response = await axios.get("http://localhost:8080/home");
     if (response) {
-      return response.data.data;
+      return response.data.playlist;
     } else {
-      console.log("could not fetch response");
+      console.log("could not fetch playlist");
     }
   } catch (error) {
     console.log("error", error);
@@ -67,7 +67,7 @@ export function HomeScreen() {
       .catch((error) => {
         console.log("error", error);
       });
-  }, [tracks]);
+  }, []);
 
   return (
     <Screen>
