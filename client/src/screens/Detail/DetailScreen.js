@@ -19,7 +19,7 @@ import { colors } from "../../assets/colors";
 import { useNavigate } from "react-router-dom";
 import ProfileIcon from "../../components/ProfileIcon";
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
-import parseComments from "../../utils/parseComments";
+import addComment from "../../utils/addComment";
 import axios from "axios";
 import parseDate from "../../utils/parseDate";
 
@@ -164,7 +164,6 @@ const fetchTrack = async (trackId) => {
   }
 };
 
-
 export default function DetailScreen() {
   const navigate = useNavigate();
   const [newComment, setNewComment] = useState("");
@@ -200,10 +199,12 @@ export default function DetailScreen() {
   };
 
   const handleAddComment = () => {
-    const commentsJSON = parseComments(commentsData, newComment)
-    console.log(commentsJSON);
+    const comments = addComment(commentsData, newComment)
+    console.log('new comments array', comments);
+
     //send comment
-    //refetch comments list (useEffect)
+    
+    //set new comments state to refresh comments array
   }
 
   return (
