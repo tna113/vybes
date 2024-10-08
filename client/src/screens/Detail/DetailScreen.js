@@ -168,6 +168,7 @@ export default function DetailScreen() {
   const trackId = data.state;
   const [track, setTrack] = useState({});
   const [commentsData, setCommentsData] = useState([]);
+  const [showCommentsInput, setShowCommentsInput] = useState(false);
 
   useEffect(() => {
     const response = fetchTrack(trackId);
@@ -242,7 +243,11 @@ export default function DetailScreen() {
             <Typography variant="h6" fontWeight="bold" className="title">
               comments
             </Typography>
-            <Button className="addButton">
+            <Button className="addButton"
+              onClick={() => {
+                setShowCommentsInput(true);
+              }}
+            >
               <AddOutlinedIcon
                 fontSize="medium"
                 fontWeight="bold"
@@ -270,17 +275,22 @@ export default function DetailScreen() {
           </>
         </CommentsContainer>
 
-        <Footer fullWidth sx={{ s: 1 }} variant="standard" margin="normal">
-          <InputLabel className="inputLabel">add comment here...</InputLabel>
-          <Input
-            disableUnderline
-            className="input"
-            onChange={(event) => handleCommentChange(event)}
-          />
-          <Button className="sendButton" onClick={() => handleAddComment()}>
-            <SendRoundedIcon />
-          </Button>
-        </Footer>
+        {showCommentsInput && (
+          <Footer fullWidth sx={{ s: 1 }} variant="standard" margin="normal">
+            <InputLabel className="inputLabel">add comment here...</InputLabel>
+            <Input
+              disableUnderline
+              className="input"
+              onChange={(event) => handleCommentChange(event)}
+            />
+            <Button className="sendButton" onClick={() => {
+              handleAddComment();
+              setShowCommentsInput(false);
+            }}>
+              <SendRoundedIcon />
+            </Button>
+          </Footer>
+        )}
       </TrackContainer>
     </Screen>
   );

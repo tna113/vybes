@@ -87,12 +87,12 @@ app.post("/detail/comment", async (req, res) => {
 
   if (error) {
     return res.status(500).json({
-      data: error,
-      message: `could not update comments for ${trackId}`,
+      error: error,
+      message: `could not update comments for trackId: ${trackId}`,
     });
   }
   return res.status(201).json({
     comments: data[0].comments,
-    message: `successfully updated comments for ${trackId}`,
+    message: `successfully updated comments for trackId: ${trackId}`,
   });
 });
