@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   ButtonBase,
@@ -11,13 +11,16 @@ import {
   styled,
 } from "@mui/material";
 import { Screen } from "../../components/Screen";
-// import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { colors } from "../../assets/colors";
-import { useNavigate } from "react-router-dom";
 import ProfileIcon from "../../components/ProfileIcon";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import addComment from "../../utils/addComment";
+import axios from "axios";
+import parseDate from "../../utils/parseDate";
 
 const DetailHeader = styled(Container)({
   height: "360px",
@@ -94,27 +97,6 @@ const CommentItem = styled(Stack)({
   },
 });
 
-const commentsData = {
-  comments: [
-    {
-      userId: 1,
-      username: "thea",
-      comment:
-        "some comment here thats really really long jsut to see what it would look like on the screen cause of user experience and aesthetic and things like that you know waht i mean",
-    },
-    {
-      userId: 2,
-      username: "han",
-      comment: "and a one line to reply",
-    },
-    {
-      userId: 2,
-      username: "han",
-      comment: "and another one",
-    },
-  ],
-};
-
 const Footer = styled(FormControl)({
   backgroundColor: colors.theme1.darkGreen,
   position: "absolute",
@@ -137,24 +119,93 @@ const Footer = styled(FormControl)({
     padding: "0px 20px",
     paddingTop: "8px",
   },
+  ".sendButton": {
+    position: "absolute",
+    right: "0",
+    bottom: "16px",
+  },
 });
+
+//TODO: export into separate util function, store in cookies?
+const fetchTrack = async (trackId) => {
+  const axiosConfig = {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  };
+  const params = {
+    trackId: trackId,
+  };
+
+  try {
+    const response = await axios.get("http://localhost:8080/detail", {
+      params,
+      axiosConfig,
+    });
+
+    if (response) {
+      return {
+        trackName: response.data.track.trackName,
+        artistName: response.data.track.artist.artistName,
+        dateAdded: response.data.track.dateAdded,
+        comments: response.data.track.comments.data,
+      };
+    } else {
+      console.log("could not fetch track");
+      return {};
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
+};
 
 export default function DetailScreen() {
   const navigate = useNavigate();
+  const [newComment, setNewComment] = useState("");
 
-  // TODO: get track id from navigation params to query for the track
-  // or we can store this in cookies? cookie best practices?
-  //   const data = useLocation();
-  //   const trackId = data.state;
+  const data = useLocation();
+  const trackId = data.state;
+  const [track, setTrack] = useState({});
+  const [commentsData, setCommentsData] = useState([]);
+  const [showCommentsInput, setShowCommentsInput] = useState(false);
+
+  useEffect(() => {
+    const response = fetchTrack(trackId);
+    response
+      .then((data) => {
+        setTrack(data);
+        setCommentsData(data.comments);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, [trackId]);
 
   //TODO: implement checking user state
   const isCurrentUser = (id) => {
     const currentUserId = 1;
-
     if (id === currentUserId) {
       return true;
     }
     return false;
+  };
+
+  const handleCommentChange = (event) => {
+    setNewComment(event.target.value);
+  };
+
+  const handleAddComment = async () => {
+    const comments = addComment(trackId, commentsData, newComment);
+
+    //set new comments state to refresh comments array
+    comments
+      .then((data) => {
+        setCommentsData(data);
+      })
+      .catch((error) => {
+        console.log("error handleAddComment()", error);
+      });
   };
 
   return (
@@ -177,13 +228,13 @@ export default function DetailScreen() {
       <TrackContainer>
         <Stack direction="column" spacing={-0.5}>
           <Typography variant="h4" fontWeight="bold" className="title">
-            track name
+            {track.trackName ?? "trackName"}
           </Typography>
           <Typography variant="h6" fontWeight="regular" className="subtitle">
-            artist name • alternative
+            {track.artistName ?? "artist name"} • {track.genre}
           </Typography>
           <Typography variant="body3" className="caption">
-            added on sep 20 2024
+            added on {track.dateAdded && parseDate(track.dateAdded)}
           </Typography>
         </Stack>
 
@@ -192,7 +243,11 @@ export default function DetailScreen() {
             <Typography variant="h6" fontWeight="bold" className="title">
               comments
             </Typography>
-            <Button className="addButton">
+            <Button className="addButton"
+              onClick={() => {
+                setShowCommentsInput(true);
+              }}
+            >
               <AddOutlinedIcon
                 fontSize="medium"
                 fontWeight="bold"
@@ -201,28 +256,41 @@ export default function DetailScreen() {
             </Button>
           </Stack>
           <>
-            {commentsData.comments.map((item, index) => (
-              <CommentItem direction="row" key={`comment-${index}`}>
-                <ProfileIcon
-                  name={item.username}
-                  sx={{ marginRight: "8px" }}
-                  size="xlarge"
-                  bgColor={
-                    isCurrentUser(item.userId)
-                      ? colors.theme1.eggwhite
-                      : colors.theme1.eggwhite30
-                  }
-                />
-                <Typography className="comment">{item.comment}</Typography>
-              </CommentItem>
-            ))}
+            {commentsData &&
+              commentsData.map((item, index) => (
+                <CommentItem direction="row" key={`comment-${index}`}>
+                  <ProfileIcon
+                    name={item.username}
+                    sx={{ marginRight: "8px" }}
+                    size="xlarge"
+                    bgColor={
+                      isCurrentUser(item.userId)
+                        ? colors.theme1.eggwhite
+                        : colors.theme1.eggwhite30
+                    }
+                  />
+                  <Typography className="comment">{item.text}</Typography>
+                </CommentItem>
+              ))}
           </>
         </CommentsContainer>
 
-        <Footer fullWidth sx={{ s: 1 }} variant="standard" margin="normal">
-          <InputLabel className="inputLabel">add comment here...</InputLabel>
-          <Input className="input" />
-        </Footer>
+        {showCommentsInput && (
+          <Footer fullWidth sx={{ s: 1 }} variant="standard" margin="normal">
+            <InputLabel className="inputLabel">add comment here...</InputLabel>
+            <Input
+              disableUnderline
+              className="input"
+              onChange={(event) => handleCommentChange(event)}
+            />
+            <Button className="sendButton" onClick={() => {
+              handleAddComment();
+              setShowCommentsInput(false);
+            }}>
+              <SendRoundedIcon />
+            </Button>
+          </Footer>
+        )}
       </TrackContainer>
     </Screen>
   );

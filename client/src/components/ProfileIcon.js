@@ -31,7 +31,7 @@ export default function ProfileIcon({ name, bgColor, textColor, sx, size }) {
         }}
       />
       <Typography
-        class="buttonLetter"
+        className="buttonLetter"
         sx={{
           color: textColor ? textColor : colors.theme1.darkGreen,
         }}
