@@ -7,6 +7,7 @@ const app = express();
 const port = 8080;
 
 app.use(cors());
+app.use(express.json());
 
 // console.log(supabase);
 
@@ -31,7 +32,6 @@ app.get("/home", async (req, res) => {
   `);
 
   if (error) {
-    console.log('debug', error);
     return res.status(500).json({
       playlist: [],
       message: "could not fetch playlist",
@@ -44,9 +44,12 @@ app.get("/home", async (req, res) => {
 });
 
 app.get("/detail", async (req, res) => {
-  const {trackId} = req.query;
+  const { trackId } = req.query;
 
-  const { data, error } = await supabase.from("track").select(`
+  const { data, error } = await supabase
+    .from("track")
+    .select(
+      `
     trackName,
     rating,
     genre,
@@ -54,30 +57,32 @@ app.get("/detail", async (req, res) => {
     dateAdded,
     artistId,
     artist (artistId, artistName)
-  `).eq('trackId', trackId);
+  `,
+    )
+    .eq("trackId", trackId);
 
   if (error) {
     return res.status(500).json({
       error: {},
       message: `could not fetch track with trackId: ${trackId}`,
-    })
-  } else {
-    return res.status(201).json({
-      track: data[0],
-      message: `successfully fetched track ${trackId}`,
     });
   }
+  return res.status(201).json({
+    track: data[0],
+    message: `successfully fetched track ${trackId}`,
+  });
 });
 
 app.post("/detail/comment", async (req, res) => {
-  const { trackId, commentsJSON } = req.body;
+  const trackId = parseInt(req.query.trackId);
+  const { commentsData } = req.body;
 
-  const {data, error} = await supabase
-    .from('track')
+  const { data, error } = await supabase
+    .from("track")
     .update({
-      comments: commentsJSON
+      comments: commentsData,
     })
-    .eq('trackId', trackId)
+    .eq("trackId", trackId)
     .select();
 
   if (error) {
@@ -85,10 +90,9 @@ app.post("/detail/comment", async (req, res) => {
       data: error,
       message: `could not update comments for ${trackId}`,
     });
-  } else {
-    return res.status(201).json({
-      data: data,
-      message: `successfully updated comments for ${trackId}`,
-    })
   }
+  return res.status(201).json({
+    comments: data[0].comments,
+    message: `successfully updated comments for ${trackId}`,
+  });
 });

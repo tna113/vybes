@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   ButtonBase,
@@ -11,14 +11,13 @@ import {
   styled,
 } from "@mui/material";
 import { Screen } from "../../components/Screen";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { colors } from "../../assets/colors";
-import { useNavigate } from "react-router-dom";
 import ProfileIcon from "../../components/ProfileIcon";
-import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import addComment from "../../utils/addComment";
 import axios from "axios";
 import parseDate from "../../utils/parseDate";
@@ -98,7 +97,6 @@ const CommentItem = styled(Stack)({
   },
 });
 
-
 const Footer = styled(FormControl)({
   backgroundColor: colors.theme1.darkGreen,
   position: "absolute",
@@ -122,9 +120,9 @@ const Footer = styled(FormControl)({
     paddingTop: "8px",
   },
   ".sendButton": {
-    position: 'absolute',
-    right: '0',
-    bottom: '16px',
+    position: "absolute",
+    right: "0",
+    bottom: "16px",
   },
 });
 
@@ -133,28 +131,26 @@ const fetchTrack = async (trackId) => {
   const axiosConfig = {
     headers: {
       "Content-Type": "application/json",
-      "Accept": "application/json",
-    }
+      Accept: "application/json",
+    },
   };
   const params = {
     trackId: trackId,
   };
 
   try {
-    const response = await axios.get('http://localhost:8080/detail', {
+    const response = await axios.get("http://localhost:8080/detail", {
       params,
       axiosConfig,
     });
 
     if (response) {
-      console.log('comments', response.data.track.comments.comments);
-
       return {
         trackName: response.data.track.trackName,
         artistName: response.data.track.artist.artistName,
         dateAdded: response.data.track.dateAdded,
-        comments: response.data.track.comments.comments,
-      }
+        comments: response.data.track.comments.data,
+      };
     } else {
       console.log("could not fetch track");
       return {};
@@ -173,17 +169,17 @@ export default function DetailScreen() {
   const [track, setTrack] = useState({});
   const [commentsData, setCommentsData] = useState([]);
 
-    useEffect(() => {
-      const response = fetchTrack(trackId);
-      response.then((data) => {
+  useEffect(() => {
+    const response = fetchTrack(trackId);
+    response
+      .then((data) => {
         setTrack(data);
-        setCommentsData(data.comments)
+        setCommentsData(data.comments);
       })
       .catch((error) => {
         console.log("error", error);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [trackId]);
+  }, [trackId]);
 
   //TODO: implement checking user state
   const isCurrentUser = (id) => {
@@ -198,14 +194,18 @@ export default function DetailScreen() {
     setNewComment(event.target.value);
   };
 
-  const handleAddComment = () => {
-    const comments = addComment(commentsData, newComment)
-    console.log('new comments array', comments);
+  const handleAddComment = async () => {
+    const comments = addComment(trackId, commentsData, newComment);
 
-    //send comment
-    
     //set new comments state to refresh comments array
-  }
+    comments
+      .then((data) => {
+        setCommentsData(data);
+      })
+      .catch((error) => {
+        console.log("error handleAddComment()", error);
+      });
+  };
 
   return (
     <Screen color={colors.theme1.green}>
@@ -227,10 +227,10 @@ export default function DetailScreen() {
       <TrackContainer>
         <Stack direction="column" spacing={-0.5}>
           <Typography variant="h4" fontWeight="bold" className="title">
-            {track.trackName ?? 'trackName'}
+            {track.trackName ?? "trackName"}
           </Typography>
           <Typography variant="h6" fontWeight="regular" className="subtitle">
-            {track.artistName ?? 'artist name'} • {track.genre}
+            {track.artistName ?? "artist name"} • {track.genre}
           </Typography>
           <Typography variant="body3" className="caption">
             added on {track.dateAdded && parseDate(track.dateAdded)}
@@ -251,31 +251,36 @@ export default function DetailScreen() {
             </Button>
           </Stack>
           <>
-            {commentsData.map((item, index) => (
-              <CommentItem direction="row" key={`comment-${index}`}>
-                <ProfileIcon
-                  name={item.username}
-                  sx={{ marginRight: "8px" }}
-                  size="xlarge"
-                  bgColor={
-                    isCurrentUser(item.userId)
-                      ? colors.theme1.eggwhite
-                      : colors.theme1.eggwhite30
-                  }
-                />
-                <Typography className="comment">{item.comment}</Typography>
-              </CommentItem>
-            ))}
+            {commentsData &&
+              commentsData.map((item, index) => (
+                <CommentItem direction="row" key={`comment-${index}`}>
+                  <ProfileIcon
+                    name={item.username}
+                    sx={{ marginRight: "8px" }}
+                    size="xlarge"
+                    bgColor={
+                      isCurrentUser(item.userId)
+                        ? colors.theme1.eggwhite
+                        : colors.theme1.eggwhite30
+                    }
+                  />
+                  <Typography className="comment">{item.text}</Typography>
+                </CommentItem>
+              ))}
           </>
         </CommentsContainer>
 
         <Footer fullWidth sx={{ s: 1 }} variant="standard" margin="normal">
           <InputLabel className="inputLabel">add comment here...</InputLabel>
-          <Input disableUnderline className="input" onChange={(event) => handleCommentChange(event)} />
+          <Input
+            disableUnderline
+            className="input"
+            onChange={(event) => handleCommentChange(event)}
+          />
           <Button className="sendButton" onClick={() => handleAddComment()}>
             <SendRoundedIcon />
           </Button>
-          </Footer>
+        </Footer>
       </TrackContainer>
     </Screen>
   );
