@@ -56,18 +56,18 @@ REACT_APP_ANON_KEY=<supabase db key>
 - after finishing a task/developing a feature, make sure to create a **PR**
 - **PRs need to be reviewed and approved before merging to the main codebase**
 
+#### developer notes
+
+- custom styled input component only accepted one letter and then lost focus
+  - this was due to the input component being re-rendered every time the state (input value) changed
+  - to fix this, i had to move the custom styled input component outside of the function declaration itself
+
 ## project complications
 
 - not enough capacity (previous members aren't able to contribute)
 - technology stack limitations (switching from hostgator server to local server)
 - rebranding (to use spotify's API, our app name cannot include 'spotify')
 - mvp changes (since capacity is at a low, mvp needs to change in order to meet end of the year 'deadline')
-
-#### project notes
-
-- custom styled input component only accepted one letter and then lost focus
-  - this was due to the input component being re-rendered every time the state (input value) changed
-  - to fix this, i had to move the custom styled input component outside of the function declaration itself
 
 #### MVP (revised)
 
