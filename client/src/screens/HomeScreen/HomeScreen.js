@@ -1,32 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { styled, Stack, Typography, Container } from "@mui/material";
+import { Stack, Typography, Container } from "@mui/material";
 import { Screen } from "../../components/Screen";
 import { TrackCard } from "../../components/TrackCard";
 import { colors } from "../../assets/colors";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import ProfileIcon from "../../components/ProfileIcon";
+import Header from "../../components/Header";
 
-const HeaderStack = styled(Stack)({
-  padding: " 0px 16px 32px 16px",
-  alignItems: "flex-end",
-  justifyContent: "space-between",
-  backgroundColor: colors.theme1.green,
-  color: colors.theme1.white,
-  minHeight: "160px",
-  ".content": {
-    height: "58px",
-  },
-  ".headerContent": {
-    paddingLeft: "8px",
-  },
-  ".title": {
-    textTransform: "lowercase",
-  },
-  ".subtitle": {
-    color: colors.theme1.white60,
-  },
-});
 const tracksContainer = {
   alignItems: "center",
   padding: "8px",
@@ -56,6 +36,7 @@ const fetchPlaylist = async () => {
 
 export function HomeScreen() {
   const [tracks, setTracks] = useState([]);
+  const [numTracks, setNumTracks] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,6 +44,7 @@ export function HomeScreen() {
     response
       .then((data) => {
         setTracks(data);
+        setNumTracks(data.length);
       })
       .catch((error) => {
         console.log("error", error);
@@ -71,17 +53,11 @@ export function HomeScreen() {
 
   return (
     <Screen>
-      <HeaderStack direction="row">
-        <Stack direction="column" className="content headerContent">
-          <Typography variant="h4" fontWeight="300" className="title">
-            playlistname
-          </Typography>
-          <Typography variant="body3" fontWeight={200} className="subtitle">
-            {tracks.length} songs
-          </Typography>
-        </Stack>
-        <ProfileIcon name="thea" />
-      </HeaderStack>
+      <Header
+        title="playlist name"
+        subtitle={`${numTracks} song${numTracks > 1 ? "s" : ""} shared with han`}
+        showAddButton={true}
+      />
       <Stack direction="column" sx={{ ...tracksContainer }}>
         {tracks.length > 0 ? (
           <>

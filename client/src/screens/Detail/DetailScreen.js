@@ -88,7 +88,6 @@ const CommentsContainer = styled(Container)({
 const CommentItem = styled(Stack)({
   paddingRight: "32px",
   marginBottom: "8px",
-
   alignItems: "flex-start",
   justifyContent: "flex-start",
   ".comment": {
@@ -243,7 +242,8 @@ export default function DetailScreen() {
             <Typography variant="h6" fontWeight="bold" className="title">
               comments
             </Typography>
-            <Button className="addButton"
+            <Button
+              className="addButton"
               onClick={() => {
                 setShowCommentsInput(true);
               }}
@@ -283,10 +283,13 @@ export default function DetailScreen() {
               className="input"
               onChange={(event) => handleCommentChange(event)}
             />
-            <Button className="sendButton" onClick={() => {
-              handleAddComment();
-              setShowCommentsInput(false);
-            }}>
+            <Button
+              className="sendButton"
+              onClick={() => {
+                handleAddComment();
+                setShowCommentsInput(false);
+              }}
+            >
               <SendRoundedIcon />
             </Button>
           </Footer>
