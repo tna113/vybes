@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 import { colors } from "../assets/colors";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import AddIcon from "@mui/icons-material/Add";
 
 const StyledCard = styled(Button)({
   gridTemplateRows: "32px auto 32px",
   height: "80px",
   width: "400px",
   borderRadius: "5px 5px 0px 0px",
-  // padding: "0px 16px",
-  ".icon": {
+  ".iconContainer": {
     width: "32px",
   },
   ".ratingContainer": {
@@ -44,7 +44,7 @@ const StyledCard = styled(Button)({
     textAlign: "left",
     textTransform: "lowercase",
   },
-  ".menuIcon": {
+  ".icon": {
     color: colors.theme1.white,
   },
   "&:hover": {
@@ -56,13 +56,20 @@ const StyledCard = styled(Button)({
   },
 });
 
-export function TrackCard({ title, artist, rating, genre, onPress }) {
+const ButtonTypes = Object.freeze({
+  ADD: 'plus',
+  MENU: 'menu',
+});
+
+export function TrackCard({ title, artist, rating, genre, onPress, endButtonType }) {
   return (
     <StyledCard onClick={onPress}>
-      <Container className="ratingContainer icon">
-        <StarRoundedIcon fontSize="large" className="ratingIcon" />
-        <Typography className="ratingText">{rating}</Typography>
-      </Container>
+      {rating!==undefined && (
+        <Container className="ratingContainer iconContainer">
+          <StarRoundedIcon fontSize="large" className="ratingIcon" />
+          <Typography className="ratingText">{rating}</Typography>
+        </Container>
+      )}
 
       <Stack direction="column" className="content" spacing={-0.5}>
         <Typography
@@ -81,8 +88,12 @@ export function TrackCard({ title, artist, rating, genre, onPress }) {
         </Typography>
       </Stack>
 
-      <Container className="icon">
-        <MoreVertIcon className="menuIcon" />
+      <Container className="iconContainer">
+        {endButtonType === ButtonTypes.MENU ? (
+          <MoreVertIcon className="icon" />
+        ): (
+          <AddIcon className="icon" />
+        )}
       </Container>
     </StyledCard>
   );
@@ -91,7 +102,8 @@ export function TrackCard({ title, artist, rating, genre, onPress }) {
 TrackCard.propTypes = {
   title: PropTypes.string.isRequired,
   artist: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.number,
   genre: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
+  endButtonType: PropTypes.oneOf([ButtonTypes.ADD, ButtonTypes.MENU]).isRequired,
 };

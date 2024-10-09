@@ -70,6 +70,7 @@ export function HomeScreen() {
                 artist={item.artist.artistName}
                 genre={item.genre}
                 onPress={() => navigate("/detail", { state: item.trackId })}
+                endButtonType="menu"
               />
             ))}
           </>
