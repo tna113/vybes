@@ -3,9 +3,6 @@ import {
   Button,
   ButtonBase,
   Container,
-  FormControl,
-  Input,
-  InputLabel,
   Stack,
   Typography,
   styled,
@@ -17,10 +14,10 @@ import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { colors } from "../../assets/colors";
 import ProfileIcon from "../../components/ProfileIcon";
-import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import addComment from "../../utils/addComment";
 import axios from "axios";
 import parseDate from "../../utils/parseDate";
+import AppInput from "../../components/AppInput";
 
 const DetailHeader = styled(Container)({
   height: "360px",
@@ -96,35 +93,6 @@ const CommentItem = styled(Stack)({
   },
 });
 
-const Footer = styled(FormControl)({
-  backgroundColor: colors.theme1.darkGreen,
-  position: "absolute",
-  bottom: "-8px",
-  paddingBottom: "16px",
-  ".text": {
-    color: colors.theme1.darkerGreen,
-  },
-  ".button": {
-    backgroundColor: "blue",
-    width: "32px",
-    height: "32px",
-  },
-  ".input": {
-    marginRight: "16px",
-    marginLeft: "16px",
-    paddingTop: "8px",
-  },
-  ".inputLabel": {
-    padding: "0px 20px",
-    paddingTop: "8px",
-  },
-  ".sendButton": {
-    position: "absolute",
-    right: "0",
-    bottom: "16px",
-  },
-});
-
 //TODO: export into separate util function, store in cookies?
 const fetchTrack = async (trackId) => {
   const axiosConfig = {
@@ -157,6 +125,11 @@ const fetchTrack = async (trackId) => {
   } catch (error) {
     console.log("error", error);
   }
+};
+
+const FormStyle = {
+  position: "absolute",
+  bottom: "0",
 };
 
 export default function DetailScreen() {
@@ -201,6 +174,8 @@ export default function DetailScreen() {
     comments
       .then((data) => {
         setCommentsData(data);
+        setNewComment("");
+        setShowCommentsInput(false);
       })
       .catch((error) => {
         console.log("error handleAddComment()", error);
@@ -276,23 +251,11 @@ export default function DetailScreen() {
         </CommentsContainer>
 
         {showCommentsInput && (
-          <Footer fullWidth sx={{ s: 1 }} variant="standard" margin="normal">
-            <InputLabel className="inputLabel">add comment here...</InputLabel>
-            <Input
-              disableUnderline
-              className="input"
-              onChange={(event) => handleCommentChange(event)}
-            />
-            <Button
-              className="sendButton"
-              onClick={() => {
-                handleAddComment();
-                setShowCommentsInput(false);
-              }}
-            >
-              <SendRoundedIcon />
-            </Button>
-          </Footer>
+          <AppInput
+            handleInputChange={handleCommentChange}
+            handleOnSubmit={handleAddComment}
+            style={FormStyle}
+          />
         )}
       </TrackContainer>
     </Screen>

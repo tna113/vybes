@@ -5,6 +5,42 @@ import AddIcon from "@mui/icons-material/Add";
 import { colors } from "../assets/colors";
 import PropTypes from "prop-types";
 
+const HeaderContainer = styled(Container)({
+  backgroundColor: colors.theme1.green,
+  minHeight: "224px",
+  minWidth: "100%",
+  padding: "48px 24px 0 24px",
+  ".container": {
+    height: "58px",
+  },
+  ".titleContainer": {
+    display: "flex",
+    flexDirection: "row",
+    alignitems: "center",
+    justifyContent: "space-between",
+  },
+  ".title": {
+    color: colors.theme1.white,
+    textransform: "lowercase",
+  },
+  ".subtitle": {
+    color: colors.theme1.white60,
+  },
+  ".icon": {
+    color: colors.theme1.white,
+  },
+  ".backButton": {
+    marginLeft: "-24px",
+    padding: "16px 0 32px 0",
+  },
+  ".spacer": {
+    height: "80px",
+  },
+  ".addButton": {
+    height: "40px",
+  },
+});
+
 export default function Header({
   title,
   subtitle,
@@ -13,46 +49,10 @@ export default function Header({
   showAddButton,
   onAddButtonClick,
 }) {
-  const HeaderContainer = styled(Container)({
-    backgroundColor: colors.theme1.green,
-    minHeight: "224px",
-    minWidth: "100%",
-    padding: "48px 24px 0 24px",
-    ".container": {
-      height: "58px",
-    },
-    ".titleContainer": {
-      display: "flex",
-      flexDirection: "row",
-      alignitems: "center",
-      justifyContent: "space-between",
-    },
-    ".title": {
-      color: colors.theme1.white,
-      textransform: "lowercase",
-    },
-    ".subtitle": {
-      color: colors.theme1.white60,
-    },
-    ".icon": {
-      color: colors.theme1.white,
-    },
-    ".backButton": {
-      marginLeft: "-24px",
-      padding: "16px 0 32px 0",
-    },
-    ".spacer": {
-      height: "80px",
-    },
-    ".addButton": {
-      height: "40px",
-    },
-  });
-
   return (
     <HeaderContainer className="container">
       {showBackButton ? (
-        <Button className="backButton spacer" onClick={() => onBackButtonClick}>
+        <Button className="backButton spacer" onClick={onBackButtonClick}>
           <NavigateBeforeIcon className="backIcon icon" fontSize="large" />
         </Button>
       ) : (
@@ -64,7 +64,7 @@ export default function Header({
         </Typography>
         <>
           {showAddButton ? (
-            <Button className="addButton" onClick={() => onAddButtonClick}>
+            <Button className="addButton" onClick={onAddButtonClick}>
               <AddIcon className="addIcon icon" fontSize="large" />
             </Button>
           ) : (
