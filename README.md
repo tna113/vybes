@@ -61,6 +61,7 @@ REACT_APP_ANON_KEY=<supabase db key>
 - custom styled input component only accepted one letter and then lost focus
   - this was due to the input component being re-rendered every time the state (input value) changed
   - to fix this, i had to move the custom styled input component outside of the function declaration itself
+- enums can be handled in javascript using `Object.freeze({})` function (`TrackCard.js`)
 
 ## project complications
 
