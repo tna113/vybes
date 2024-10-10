@@ -57,6 +57,7 @@ export function HomeScreen() {
         title="playlist name"
         subtitle={`${numTracks} song${numTracks > 1 ? "s" : ""} shared with han`}
         showAddButton={true}
+        onAddButtonClick={() => navigate("/search")}
       />
       <Stack direction="column" sx={{ ...tracksContainer }}>
         {tracks.length > 0 ? (
