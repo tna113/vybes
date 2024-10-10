@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import supabase from "./supabaseClient.js";
 import "dotenv/config";
+import axios from "axios";
 
 const app = express();
 const port = 8080;
@@ -95,4 +96,35 @@ app.post("/detail/comment", async (req, res) => {
     comments: data[0].comments,
     message: `successfully updated comments for trackId: ${trackId}`,
   });
+});
+
+app.post('/user', async (req, res) => {
+  //define headers, parameters
+  const axiosConfig = {
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
+  const json = {
+      grant_type: "client_credentials",
+      client_id: "4f75feb86a3d49adb5a7df64f4d8780d",
+      client_secret: "ee257029ff0a4e999bd831c347bca096",
+  };
+  const data = new URLSearchParams(Object.entries(json)).toString();
+
+  //use axios to make post request
+  await axios.post('https://accounts.spotify.com/api/token', data, axiosConfig)
+    .then(response => {
+      return res.status(201).json({
+        token: response.data.access_token,
+        tokenType: response.data.token_type,
+        expiresIn: response.data.expires_in,
+      });
+    })
+    .catch(error => {
+      return res.status(500).json({
+        errorMessage: 'could not fetch user',
+        error: error,
+      });
+    });
 });
