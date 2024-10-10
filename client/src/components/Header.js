@@ -7,9 +7,9 @@ import PropTypes from "prop-types";
 
 const HeaderContainer = styled(Container)({
   backgroundColor: colors.theme1.green,
-  minHeight: "224px",
+  minHeight: "216px",
   minWidth: "100%",
-  padding: "48px 24px 0 24px",
+  padding: "48px 40px 0 40px",
   ".container": {
     height: "58px",
   },

@@ -20,12 +20,11 @@ const StyledForm = styled(FormControl)({
     height: "40px",
   },
   ".input": {
-    marginHorizontal: "16px",
     paddingTop: "8px",
-    marginLeft: "16px",
+    marginLeft: "40px",
   },
   ".inputLabel": {
-    padding: "8px 20px 0px 20px",
+    padding: "8px 40px 0px 40px",
     color: colors.theme1.green,
   },
   ".sendButton": {
