@@ -98,8 +98,7 @@ app.post("/detail/comment", async (req, res) => {
   });
 });
 
-app.post('/user', async (req, res) => {
-  //define headers, parameters
+app.post('/token', async (req, res) => {
   const axiosConfig = {
     headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -112,7 +111,6 @@ app.post('/user', async (req, res) => {
   };
   const data = new URLSearchParams(Object.entries(json)).toString();
 
-  //use axios to make post request
   await axios.post('https://accounts.spotify.com/api/token', data, axiosConfig)
     .then(response => {
       return res.status(201).json({
@@ -123,7 +121,7 @@ app.post('/user', async (req, res) => {
     })
     .catch(error => {
       return res.status(500).json({
-        errorMessage: 'could not fetch user',
+        errorMessage: 'could not fetch spotify access token',
         error: error,
       });
     });

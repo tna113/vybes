@@ -34,10 +34,10 @@ const fetchPlaylist = async () => {
   }
 };
 
-const fetchUser = async () => {
+const fetchToken = async () => {
   try {
-    const response = await axios.post("http://localhost:8080/user");
-    console.log('/user backend response', response);
+    const response = await axios.post("http://localhost:8080/token");
+    console.log('/token backend response', response);
   } catch (error) {
     console.log("error", error);
   }
@@ -59,7 +59,7 @@ export function HomeScreen() {
         console.log("error", error);
       });
 
-    fetchUser();
+    fetchToken();
   }, []);
 
   return (
