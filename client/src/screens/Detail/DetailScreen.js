@@ -98,7 +98,7 @@ const fetchTrack = async (trackId) => {
   const axiosConfig = {
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json",
+      "Accept": "application/json",
     },
   };
   const params = {
