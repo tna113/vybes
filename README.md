@@ -23,12 +23,15 @@
 ##### set up your `.env` file
 
 1. create an `.env` file inside the `server` directory (`vybes/server/.env`)
-2. create two variables: `REACT_APP_SUPABASE_URL` and `REACT_APP_ANON_KEY`
-3. your file should look like this:
+2. create two variables for supabase: `REACT_APP_SUPABASE_URL` and `REACT_APP_ANON_KEY`
+4. create two variables for spotify: `REACT_APP_SPOTIFY_ID` and `REACT_APP_SPOTIFY_SECRET`
+5. your file should look like this:
 
 ```
 REACT_APP_SUPABASE_URL=<supabse url>
 REACT_APP_ANON_KEY=<supabase db key>
+REACT_APP_SPOTIFY_ID=<spotify client id>
+REACT_APP_SPOTIFY_SECRET=<spotify client secret>
 ```
 
 ##### to run the project, first start up the backend

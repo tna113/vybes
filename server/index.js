@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import supabase from "./supabaseClient.js";
 import "dotenv/config";
+import axios from "axios";
 
 const app = express();
 const port = 8080;
@@ -95,4 +96,33 @@ app.post("/detail/comment", async (req, res) => {
     comments: data[0].comments,
     message: `successfully updated comments for trackId: ${trackId}`,
   });
+});
+
+app.post('/token', async (req, res) => {
+  const axiosConfig = {
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
+  const json = {
+      grant_type: "client_credentials",
+      client_id: process.env.REACT_APP_SPOTIFY_ID,
+      client_secret: process.env.REACT_APP_SPOTIFY_SECRET,
+  };
+  const data = new URLSearchParams(Object.entries(json)).toString();
+
+  await axios.post('https://accounts.spotify.com/api/token', data, axiosConfig)
+    .then(response => {
+      return res.status(201).json({
+        token: response.data.access_token,
+        tokenType: response.data.token_type,
+        expiresIn: response.data.expires_in,
+      });
+    })
+    .catch(error => {
+      return res.status(500).json({
+        errorMessage: 'could not fetch spotify access token',
+        error: error,
+      });
+    });
 });

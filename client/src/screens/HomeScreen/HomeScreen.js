@@ -34,6 +34,15 @@ const fetchPlaylist = async () => {
   }
 };
 
+const fetchToken = async () => {
+  try {
+    const response = await axios.post("http://localhost:8080/token");
+    console.log('/token backend response', response);
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+
 export function HomeScreen() {
   const [tracks, setTracks] = useState([]);
   const [numTracks, setNumTracks] = useState(0);
@@ -49,6 +58,8 @@ export function HomeScreen() {
       .catch((error) => {
         console.log("error", error);
       });
+
+    fetchToken();
   }, []);
 
   return (
