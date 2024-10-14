@@ -3,12 +3,25 @@ import cors from "cors";
 import supabase from "./supabaseClient.js";
 import "dotenv/config";
 import axios from "axios";
+import session from "express-session";
 
 const app = express();
 const port = 8080;
 
 app.use(cors());
 app.use(express.json());
+//to use recommended secure attribute for cookie
+//this cookie will only be set if https
+// app.set("trust proxy", 1);
+app.use(session({
+  secret: "keyboard cat",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    // secure: true,
+    value: 'hello world',
+  }
+}));
 
 // console.log(supabase);
 
@@ -22,6 +35,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/home", async (req, res) => {
+  console.log('cookie', req.session.cookie);console.log();
   const { data, error } = await supabase.from("track").select(`
     trackId,
     trackName,
