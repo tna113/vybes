@@ -125,3 +125,4 @@ REACT_APP_SPOTIFY_SECRET=<spotify client secret>
 - youtube compatibility
 - apple music compatibility
 - podcasts compatibility
+- create a spotify playlist with songs with a certain rating
