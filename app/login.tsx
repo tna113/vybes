@@ -20,6 +20,7 @@ export default function LoginScreen() {
   const handleSubmit = () => {
     // Handle login logic here
     console.log('Login attempt:', { username, password });
+    router.push('/(tabs)');
   };
 
   const handleForgotPassword = () => {
@@ -32,10 +33,6 @@ export default function LoginScreen() {
     console.log('Create account pressed');
   };
 
-  const handleBackToHome = () => {
-    router.push('/(tabs)');
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -43,11 +40,6 @@ export default function LoginScreen() {
         style={styles.keyboardView}
       >
         <View style={styles.content}>
-          {/* Back Button */}
-          <TouchableOpacity style={styles.backButton} onPress={handleBackToHome}>
-            <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
-          </TouchableOpacity>
-          
           {/* Logo */}
           <View style={styles.logoContainer}>
             <View style={styles.logo}>
@@ -128,12 +120,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 40,
-  },
-  backButton: {
-    position: 'absolute',
-    top: 60,
-    left: 20,
-    zIndex: 1,
   },
   logoContainer: {
     alignItems: 'center',
