@@ -4,12 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/ThemedText';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { useRouter } from 'expo-router';
-
-export interface ActiveButton {
-  title: string;
-  screen: string;
-  onPress?: () => void;
-}
+import ActiveButtons, { ActiveButton } from '@/components/ActiveButtons';
 
 interface ScreenProps {
   enableEmptySpace?: boolean;
@@ -17,6 +12,7 @@ interface ScreenProps {
   title: string;
   subtitle?: string;
   activeButtons?: ActiveButton[];
+  onSearchPress?: () => void;
   children: React.ReactNode;
 }
 
@@ -26,22 +22,13 @@ export default function Screen({
   title, 
   subtitle, 
   activeButtons = [], 
+  onSearchPress,
   children 
 }: ScreenProps) {
   const router = useRouter();
-  const [activeButton, setActiveButton] = React.useState<string>('');
 
   const handleBackPress = () => {
     router.back();
-  };
-
-  const handleActiveButtonPress = (button: ActiveButton) => {
-    setActiveButton(button.title);
-    if (button.onPress) {
-      button.onPress();
-    } else if (button.screen && button.screen !== '') {
-      router.push(button.screen as any);
-    }
   };
 
   return (
@@ -70,24 +57,7 @@ export default function Screen({
       {/* Part 2: Scrollable Content Section */}
       <View style={styles.contentSection}>
         {/* Active Buttons */}
-        {activeButtons.length > 0 && (
-          <View style={styles.actionButtons}>
-            {activeButtons.map((button, index) => (
-              <TouchableOpacity 
-                key={index}
-                style={[
-                  styles.actionButton,
-                  activeButton === button.title && styles.activeButton
-                ]}
-                onPress={() => handleActiveButtonPress(button)}
-              >
-                <ThemedText style={activeButton === button.title ? styles.activeButtonText : styles.actionButtonText}>
-                  {button.title}
-                </ThemedText>
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
+        <ActiveButtons activeButtons={activeButtons} onSearchPress={onSearchPress} />
         
         {/* Children Content */}
         {children}
@@ -148,34 +118,5 @@ const styles = StyleSheet.create({
   contentSection: {
     flex: 1,
     backgroundColor: '#1E1E1E',
-  },
-  actionButtons: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    gap: 10,
-    backgroundColor: '#1E1E1E',
-  },
-  actionButton: {
-    borderWidth: 1,
-    borderColor: '#868686',
-    borderRadius: 25,
-    paddingVertical: 4,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-  },
-  activeButton: {
-    backgroundColor: '#5C8B7E', // Match login.tsx green
-    borderColor: '#5C8B7E',
-  },
-  actionButtonText: {
-    color: '#868686',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  activeButtonText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
   },
 }); 

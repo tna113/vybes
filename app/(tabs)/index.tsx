@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { useRouter } from 'expo-router';
-import Screen, { ActiveButton } from '@/components/Screen';
+import Screen from '@/components/Screen';
+import { ActiveButton } from '@/components/ActiveButtons';
 
 export default function ProfileScreen() {
   const router = useRouter();

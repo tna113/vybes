@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Text, TextInput } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { IconSymbol } from '@/components/ui/IconSymbol';
-import Screen, { ActiveButton } from '@/components/Screen';
+import Screen from '@/components/Screen';
+import  { ActiveButton } from '@/components/ActiveButtons';
 
 export default function SearchScreen() {
   const [activeButton, setActiveButton] = useState('song');
