@@ -12,20 +12,21 @@ export default function ProfileScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* Header Section */}
-        <View style={styles.header}>
-          <View style={styles.profileSection}>
-            <View style={styles.profileIcon}>
-              <Text style={styles.profileText}>V</Text>
-            </View>
-            <View style={styles.titleSection}>
-              <ThemedText style={styles.title}>playlists</ThemedText>
-              <ThemedText style={styles.subtitle}>sharing 3 playlists</ThemedText>
-            </View>
+      {/* Part 1: Fixed Header Section */}
+      <View style={styles.headerSection}>
+        <View style={styles.profileSection}>
+          <View style={styles.profileIcon}>
+            <Text style={styles.profileText}>V</Text>
+          </View>
+          <View style={styles.titleSection}>
+            <ThemedText style={styles.title}>playlists</ThemedText>
+            <ThemedText style={styles.subtitle}>sharing 3 playlists</ThemedText>
           </View>
         </View>
+      </View>
 
+      {/* Part 2: Scrollable Content Section */}
+      <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
         {/* Action Buttons */}
         <View style={styles.actionButtons}>
           <TouchableOpacity 
@@ -89,18 +90,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1E1E1E', // Dark background
   },
-  scrollView: {
-    flex: 1,
-  },
-  header: {
+  headerSection: {
+    backgroundColor: '#191919',
     paddingHorizontal: 20,
     paddingTop: 80,
-    backgroundColor: '#191919',
+    paddingBottom: 20,
+  },
+  contentSection: {
+    flex: 1,
+    backgroundColor: '#1E1E1E',
   },
   profileSection: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    marginBottom: 20,
   },
   profileIcon: {
     width: 50,
@@ -121,12 +123,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    color: '#FFFFFF',
+    color: '#F5F0ECE5',
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 16,
-    color: '#FFFFFF',
+    color: '#F5F0ECE5',
     opacity: 0.8,
   },
   actionButtons: {
