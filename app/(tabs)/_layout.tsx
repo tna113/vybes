@@ -63,6 +63,14 @@ export default function TabLayout() {
           href: null, // Hide from tab bar but keep accessible
         }}
       />
+      <Tabs.Screen
+        name="appInfo"
+        options={{
+          title: 'App Info',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="info.circle" color={color} />,
+          href: null, // Hide from tab bar but keep accessible
+        }}
+      />
     </Tabs>
   );
 }
