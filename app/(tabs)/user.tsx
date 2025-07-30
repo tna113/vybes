@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/ThemedText';
+import { useRouter } from 'expo-router';
 
 export default function ProfileScreen() {
+  const router = useRouter();
   const [activeButton, setActiveButton] = useState('');
 
   const handleButtonPress = (buttonName: string) => {
-    setActiveButton(activeButton === buttonName ? '' : buttonName);
+    if (buttonName === 'settings') {
+      router.push('/settings');
+    } else {
+      setActiveButton(activeButton === buttonName ? '' : buttonName);
+    }
   };
 
   return (
