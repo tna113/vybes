@@ -1,72 +1,43 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/ThemedText';
 import { useRouter } from 'expo-router';
+import Screen, { ActiveButton } from '@/components/Screen';
 
 export default function ProfileScreen() {
   const router = useRouter();
   const [activeButton, setActiveButton] = useState('notifications');
 
-  const handleButtonPress = (buttonName: string) => {
-    setActiveButton(buttonName);
-  };
-
   const handlePlaylistPress = () => {
     router.push('/(tabs)/playlistItem');
   };
 
+  const activeButtons: ActiveButton[] = [
+    { 
+      title: 'create a playlist', 
+      screen: '',
+      onPress: () => setActiveButton('create a playlist')
+    },
+    { 
+      title: 'friends', 
+      screen: '',
+      onPress: () => setActiveButton('friends')
+    },
+    { 
+      title: 'notifications', 
+      screen: '',
+      onPress: () => setActiveButton('notifications')
+    }
+  ];
+
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Part 1: Fixed Header Section */}
-      <View style={styles.headerSection}>
-        <View style={styles.profileSection}>
-          <View style={styles.profileIcon}>
-            <Text style={styles.profileText}>V</Text>
-          </View>
-          <View style={styles.titleSection}>
-            <ThemedText style={styles.title}>playlists</ThemedText>
-            <ThemedText style={styles.subtitle}>sharing 3 playlists</ThemedText>
-          </View>
-        </View>
-      </View>
-
-      {/* Part 2: Scrollable Content Section */}
+    <Screen
+      iconName="V"
+      title="playlists"
+      subtitle="sharing 3 playlists"
+      activeButtons={activeButtons}
+    >
       <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
-        {/* Action Buttons */}
-        <View style={styles.actionButtons}>
-          <TouchableOpacity 
-            style={[
-              styles.actionButton, 
-              styles.createButton,
-              activeButton === 'create' && styles.activeButton
-            ]}
-            onPress={() => handleButtonPress('create')}
-          >
-            <ThemedText style={activeButton === 'create' ? styles.activeButtonText : styles.actionButtonText}>create a playlist</ThemedText>
-          </TouchableOpacity>
-          <TouchableOpacity 
-            style={[
-              styles.actionButton, 
-              styles.friendsButton,
-              activeButton === 'friends' && styles.activeButton
-            ]}
-            onPress={() => handleButtonPress('friends')}
-          >
-            <ThemedText style={activeButton === 'friends' ? styles.activeButtonText : styles.actionButtonText}>friends</ThemedText>
-          </TouchableOpacity>
-          <TouchableOpacity 
-            style={[
-              styles.actionButton, 
-              styles.notificationsButton,
-              activeButton === 'notifications' && styles.activeButton
-            ]}
-            onPress={() => handleButtonPress('notifications')}
-          >
-            <ThemedText style={activeButton === 'notifications' ? styles.activeButtonText : styles.actionButtonText}>notifications</ThemedText>
-          </TouchableOpacity>
-        </View>
-
         {/* Playlist List */}
         <View style={styles.playlistSection}>
           {[1, 2, 3].map((item, index) => (
@@ -87,92 +58,14 @@ export default function ProfileScreen() {
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1E1E1E', // Dark background
-  },
-  headerSection: {
-    backgroundColor: '#191919',
-    paddingHorizontal: 20,
-    paddingTop: 80,
-    paddingBottom: 20,
-  },
   contentSection: {
     flex: 1,
     backgroundColor: '#1E1E1E',
-  },
-  profileSection: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-  profileIcon: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#5C8B7E', // Match login.tsx green
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  profileText: {
-    color: '#006400', // Dark green text
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  titleSection: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 32,
-    color: '#F5F0ECE5',
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#F5F0ECE5',
-    opacity: 0.8,
-  },
-  actionButtons: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    gap: 10,
-    backgroundColor: '#1E1E1E',
-  },
-  actionButton: {
-    borderWidth: 1,
-    borderColor: '#868686',
-    borderRadius: 25,
-    paddingVertical: 4,
-    alignItems: 'center',
-  },
-  createButton: {
-    paddingHorizontal: 20,
-  },
-  friendsButton: {
-    paddingHorizontal: 12,
-  },
-  notificationsButton: {
-    paddingHorizontal: 16,
-  },
-  activeButton: {
-    backgroundColor: '#5C8B7E', // Match login.tsx green
-    borderColor: '#5C8B7E',
-  },
-  actionButtonText: {
-    color: '#868686',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  activeButtonText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
   },
   playlistSection: {
     paddingHorizontal: 20,
