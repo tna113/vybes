@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/ThemedText';
+import { useRouter } from 'expo-router';
 
 export default function ProfileScreen() {
+  const router = useRouter();
   const [activeButton, setActiveButton] = useState('notifications');
 
   const handleButtonPress = (buttonName: string) => {
     setActiveButton(buttonName);
+  };
+
+  const handlePlaylistPress = () => {
+    router.push('/(tabs)/playlistItem');
   };
 
   return (
@@ -64,7 +70,7 @@ export default function ProfileScreen() {
         {/* Playlist List */}
         <View style={styles.playlistSection}>
           {[1, 2, 3].map((item, index) => (
-            <View key={index} style={styles.playlistItem}>
+            <TouchableOpacity key={index} style={styles.playlistItem} onPress={handlePlaylistPress}>
               <View style={styles.playlistInfo}>
                 <ThemedText style={styles.playlistName}>playlistname</ThemedText>
                 <ThemedText style={styles.playlistSubtitle}>12 songs shared with han</ThemedText>
@@ -77,7 +83,7 @@ export default function ProfileScreen() {
                   <Text style={styles.avatarTextGreen}>H</Text>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>

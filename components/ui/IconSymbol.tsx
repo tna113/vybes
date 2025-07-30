@@ -17,6 +17,7 @@ const MAPPING = {
   'chevron.right': 'chevron-right',
   'magnifyingglass': 'search',
   'person.fill': 'person',
+  'ellipsis': 'more-vert',
 } as Partial<
   Record<
     import('expo-symbols').SymbolViewProps['name'],
