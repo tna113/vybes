@@ -19,8 +19,11 @@ export default function ProfileScreen() {
     },
     { 
       title: 'app info', 
-      screen: '',
-      onPress: () => setActiveButton(activeButton === 'app info' ? '' : 'app info')
+      screen: '/(tabs)/appInfo',
+      onPress: () => {
+        setActiveButton('app info');
+        router.push('/(tabs)/appInfo');
+      }
     }
   ];
 
