@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/ThemedText';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import { useRouter } from 'expo-router';
+import Screen, { ActiveButton } from '@/components/Screen';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -12,24 +11,12 @@ export default function SettingsScreen() {
   const [notifications, setNotifications] = useState('on');
   const [navigationLabels, setNavigationLabels] = useState('on');
 
-  const handleBackPress = () => {
-    router.back();
-  };
-
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Part 1: Fixed Header Section */}
-      <View style={styles.headerSection}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
-          <IconSymbol size={24} name="arrow.left" color={'#FFFFFF'} />
-        </TouchableOpacity>
-        <View style={styles.titleSection}>
-          <ThemedText style={styles.title}>settings</ThemedText>
-          <ThemedText style={styles.subtitle}>and preferences</ThemedText>
-        </View>
-      </View>
-
-      {/* Part 2: Scrollable Content Section */}
+    <Screen
+      iconName="back"
+      title="settings"
+      subtitle="and preferences"
+    >
       <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
         {/* Theme Section */}
         <View style={styles.section}>
@@ -158,41 +145,11 @@ export default function SettingsScreen() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1E1E1E', // Dark background
-  },
-  headerSection: {
-    backgroundColor: '#191919',
-    paddingHorizontal: 20,
-    paddingTop: 80,
-    paddingBottom: 20,
-  },
-  backButton: {
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    marginBottom: 15,
-  },
-  titleSection: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 32,
-    color: '#F5F0ECE5',
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#F5F0ECE5',
-    opacity: 0.8,
-  },
   contentSection: {
     flex: 1,
     backgroundColor: '#1E1E1E',

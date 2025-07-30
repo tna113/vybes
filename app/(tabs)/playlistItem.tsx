@@ -1,21 +1,13 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/ThemedText';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { useRouter } from 'expo-router';
+import Screen, { ActiveButton } from '@/components/Screen';
 
 export default function PlaylistItemScreen() {
   const router = useRouter();
   const [activeFilter, setActiveFilter] = useState('han');
-
-  const handleBackPress = () => {
-    router.back();
-  };
-
-  const handleFilterPress = (filterName: string) => {
-    setActiveFilter(filterName);
-  };
 
   // Sample song data
   const songs = [
@@ -33,50 +25,34 @@ export default function PlaylistItemScreen() {
     { id: 12, name: 'track name', artist: 'artist name', genre: 'alternative', rating: 4 },
   ];
 
-  return (
-    <SafeAreaView style={styles.container}>
-      {/* Part 1: Fixed Header Section */}
-      <View style={styles.headerSection}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
-          <IconSymbol size={24} name="arrow.left" color={'#FFFFFF'} />
-        </TouchableOpacity>
-        <View style={styles.titleSection}>
-          <ThemedText style={styles.title}>playlistname</ThemedText>
-          <ThemedText style={styles.subtitle}>12 songs</ThemedText>
-        </View>
-      </View>
+  const activeButtons: ActiveButton[] = [
+    { 
+      title: 'han', 
+      screen: '',
+      onPress: () => setActiveFilter('han')
+    },
+    { 
+      title: 'thea', 
+      screen: '',
+      onPress: () => setActiveFilter('thea')
+    },
+    { 
+      title: 'unrated', 
+      screen: '',
+      onPress: () => setActiveFilter('unrated')
+    }
+  ];
 
-      {/* Part 2: Scrollable Content Section */}
+  return (
+    <Screen
+      iconName="back"
+      title="playlistname"
+      subtitle="12 songs"
+      activeButtons={activeButtons}
+    >
       <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
-        {/* Filter Tags */}
-        <View style={styles.filterSection}>
-          <TouchableOpacity 
-            style={[
-              styles.filterButton,
-              activeFilter === 'han' && styles.activeFilterButton
-            ]}
-            onPress={() => handleFilterPress('han')}
-          >
-            <ThemedText style={activeFilter === 'han' ? styles.activeFilterText : styles.filterText}>han</ThemedText>
-          </TouchableOpacity>
-          <TouchableOpacity 
-            style={[
-              styles.filterButton,
-              activeFilter === 'thea' && styles.activeFilterButton
-            ]}
-            onPress={() => handleFilterPress('thea')}
-          >
-            <ThemedText style={activeFilter === 'thea' ? styles.activeFilterText : styles.filterText}>thea</ThemedText>
-          </TouchableOpacity>
-          <TouchableOpacity 
-            style={[
-              styles.filterButton,
-              activeFilter === 'unrated' && styles.activeFilterButton
-            ]}
-            onPress={() => handleFilterPress('unrated')}
-          >
-            <ThemedText style={activeFilter === 'unrated' ? styles.activeFilterText : styles.filterText}>unrated</ThemedText>
-          </TouchableOpacity>
+        {/* Search Button */}
+        <View style={styles.searchSection}>
           <TouchableOpacity style={styles.searchButton}>
             <IconSymbol size={20} name="magnifyingglass" color={'#FFFFFF'} />
           </TouchableOpacity>
@@ -100,75 +76,21 @@ export default function PlaylistItemScreen() {
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1E1E1E', // Dark background
-  },
-  headerSection: {
-    backgroundColor: '#191919',
-    paddingHorizontal: 20,
-    paddingTop: 80,
-    paddingBottom: 20,
-  },
-  backButton: {
-    width: 50,
-    height: 50,
-    marginBottom: 15,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    zIndex: 1,
-  },
-  titleSection: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 32,
-    color: '#F5F0ECE5',
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#F5F0ECE5',
-    opacity: 0.8,
-  },
   contentSection: {
     flex: 1,
     backgroundColor: '#1E1E1E',
   },
-  filterSection: {
+  searchSection: {
     flexDirection: 'row',
     paddingHorizontal: 20,
     paddingVertical: 16,
-    gap: 10,
     backgroundColor: '#1E1E1E',
     alignItems: 'center',
-  },
-  filterButton: {
-    borderWidth: 1,
-    borderColor: '#FFFFFF',
-    borderRadius: 25,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-  },
-  activeFilterButton: {
-    backgroundColor: '#5C8B7E', // Match login.tsx green
-    borderColor: '#5C8B7E',
-  },
-  filterText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  activeFilterText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
   },
   searchButton: {
     width: 40,
