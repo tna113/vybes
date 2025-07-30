@@ -10,7 +10,7 @@ export default function ProfileScreen() {
 
   const handleButtonPress = (buttonName: string) => {
     if (buttonName === 'settings') {
-      router.push('/settings');
+      router.push('/(tabs)/settings');
     } else {
       setActiveButton(activeButton === buttonName ? '' : buttonName);
     }
