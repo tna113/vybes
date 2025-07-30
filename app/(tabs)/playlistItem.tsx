@@ -3,7 +3,8 @@ import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-nati
 import { ThemedText } from '@/components/ThemedText';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { useRouter } from 'expo-router';
-import Screen, { ActiveButton } from '@/components/Screen';
+import Screen from '@/components/Screen';
+import { ActiveButton } from '@/components/ActiveButtons';
 
 export default function PlaylistItemScreen() {
   const router = useRouter();
@@ -43,21 +44,20 @@ export default function PlaylistItemScreen() {
     }
   ];
 
+  const handleSearchPress = () => {
+    // Handle search functionality
+    console.log('Search pressed');
+  };
+
   return (
     <Screen
       iconName="back"
       title="playlistname"
       subtitle="12 songs"
       activeButtons={activeButtons}
+      onSearchPress={handleSearchPress}
     >
       <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
-        {/* Search Button */}
-        <View style={styles.searchSection}>
-          <TouchableOpacity style={styles.searchButton}>
-            <IconSymbol size={20} name="magnifyingglass" color={'#FFFFFF'} />
-          </TouchableOpacity>
-        </View>
-
         {/* Song List */}
         <View style={styles.songSection}>
           {songs.map((song, index) => (
@@ -84,20 +84,6 @@ const styles = StyleSheet.create({
   contentSection: {
     flex: 1,
     backgroundColor: '#1E1E1E',
-  },
-  searchSection: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    backgroundColor: '#1E1E1E',
-    alignItems: 'center',
-  },
-  searchButton: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 'auto',
   },
   songSection: {
     paddingHorizontal: 20,
