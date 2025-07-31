@@ -14,6 +14,7 @@ interface ScreenProps {
   activeButtons?: ActiveButton[];
   onSearchPress?: () => void;
   children: React.ReactNode;
+  starRating?: React.ReactNode;
 }
 
 export default function Screen({ 
@@ -23,7 +24,8 @@ export default function Screen({
   subtitle, 
   activeButtons = [], 
   onSearchPress,
-  children 
+  children,
+  starRating
 }: ScreenProps) {
   const router = useRouter();
 
@@ -52,6 +54,13 @@ export default function Screen({
           {/* Large Empty Space */}
           {enableEmptySpace && <View style={styles.emptySpace} />}
         </View>
+        
+        {/* Star Rating - Positioned at the end of header */}
+        {starRating && (
+          <View style={styles.starRatingWrapper}>
+            {starRating}
+          </View>
+        )}
       </View>
 
       {/* Part 2: Scrollable Content Section */}
@@ -73,9 +82,9 @@ const styles = StyleSheet.create({
   },
   headerSection: {
     backgroundColor: '#191919',
-    paddingHorizontal: 20,
-    paddingTop: 80,
-    paddingBottom: 20,
+    paddingHorizontal: 28,
+    paddingTop: 88,
+    paddingBottom: 28,
   },
   backButton: {
     width: 50,
@@ -118,5 +127,9 @@ const styles = StyleSheet.create({
   contentSection: {
     flex: 1,
     backgroundColor: '#1E1E1E',
+  },
+  starRatingWrapper: {
+    marginTop: 8,
+    alignSelf: 'flex-end',
   },
 }); 
