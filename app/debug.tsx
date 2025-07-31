@@ -1,44 +1,47 @@
 /* eslint-disable no-console */
 import Screen from '@/components/Screen';
-import {createClient} from '@supabase/supabase-js';
 import {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {Network} from '../hooks/network/Network';
 import {Track} from '../types';
-
-// Create a single supabase client for interacting with your database
-const url = 'https://zwbbzxleomraswznvsnd.supabase.co';
-const legacyApiKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3YmJ6eGxlb21yYXN3em52c25kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUzNDg2OTQsImV4cCI6MjA2MDkyNDY5NH0.CJiKl6OERmD-HoDU6w0gFVjbR_TGyTU7Dl-EF_e64tA';
-const supabase = createClient(url, legacyApiKey);
 
 const getTracks = async () => {
   try {
-    const {data, error} = await supabase.from('tracks').select(`*`);
-
-    if (data) {
-      return data;
-    } else {
-      return error;
-    }
+    // Using the Network class to make a GET request to the Supabase REST API
+    const response = await Network.get<Track[]>('/rest/v1/tracks');
+    return response;
   } catch (error) {
+    console.error('Error fetching tracks:', error);
     throw error;
   }
 };
 
 export default function DebugScreen() {
   const [data, setData] = useState<Track[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTracks = async () => {
-      const result = await getTracks();
+      try {
+        setLoading(true);
+        setError(null);
 
-      if (Array.isArray(result)) {
-        const arr = result as Track[];
-        const tracks: Track[] = [];
-        arr.forEach((element) => {
-          tracks.push(element ?? {track_name: 'missing'});
-        });
-        setData(tracks);
+        const result = await getTracks();
+
+        if (Array.isArray(result)) {
+          const tracks: Track[] = [];
+          result.forEach((element) => {
+            tracks.push(element ?? {track_name: 'missing'});
+          });
+          setData(tracks);
+        } else {
+          setError('Invalid response format');
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error occurred');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -52,7 +55,17 @@ export default function DebugScreen() {
     <SafeAreaView>
       <Screen title='Debug' subtitle='Debug' iconName='back'>
         <View style={styles.responseContainer}>
-          <Text style={styles.response}>response</Text>
+          {loading && <Text style={styles.response}>Loading...</Text>}
+          {error && (
+            <Text style={[styles.response, styles.error]}>{error}</Text>
+          )}
+          {!loading && !error && (
+            <Text style={styles.response}>
+              {data.length > 0
+                ? `Loaded ${data.length} tracks`
+                : 'No tracks found'}
+            </Text>
+          )}
         </View>
       </Screen>
     </SafeAreaView>
@@ -76,5 +89,8 @@ const styles = StyleSheet.create({
   response: {
     fontSize: 14,
     color: 'white',
+  },
+  error: {
+    color: '#ff6b6b',
   },
 });
