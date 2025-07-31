@@ -1,22 +1,46 @@
-import React from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Text,
-} from 'react-native';
+import {ActiveButton} from '@/components/ActiveButtons';
+import Screen from '@/components/Screen';
 import {ThemedText} from '@/components/ThemedText';
 import {useRouter} from 'expo-router';
-import Screen from '@/components/Screen';
-import {ActiveButton} from '@/components/ActiveButtons';
+import React from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 export default function ProfileScreen() {
   const router = useRouter();
 
   const handlePlaylistPress = () => {
-    router.push('/(tabs)/playlistItem');
+    router.push('/playlist/1'); // Navigate to playlist with ID 1
   };
+
+  const playlists = [
+    {
+      id: 1,
+      name: 'Summer Vibes',
+      songCount: 15,
+      sharedWith: 'han',
+      avatars: ['T', 'H'],
+    },
+    {
+      id: 2,
+      name: 'Workout Mix',
+      songCount: 8,
+      sharedWith: 'alex',
+      avatars: ['T', 'A'],
+    },
+    {
+      id: 3,
+      name: 'Chill Beats',
+      songCount: 22,
+      sharedWith: 'sam',
+      avatars: ['T', 'S'],
+    },
+  ];
 
   const activeButtons: ActiveButton[] = [
     {
@@ -44,25 +68,27 @@ export default function ProfileScreen() {
         showsVerticalScrollIndicator={false}>
         {/* Playlist List */}
         <View style={styles.playlistSection}>
-          {[1, 2, 3].map((item, index) => (
+          {playlists.map((playlist, index) => (
             <TouchableOpacity
-              key={index}
+              key={playlist.id}
               style={styles.playlistItem}
-              onPress={handlePlaylistPress}>
+              onPress={() => handlePlaylistPress()}>
               <View style={styles.playlistInfo}>
                 <ThemedText style={styles.playlistName}>
-                  playlistname
+                  {playlist.name}
                 </ThemedText>
                 <ThemedText style={styles.playlistSubtitle}>
-                  12 songs shared with han
+                  {playlist.songCount} songs shared with {playlist.sharedWith}
                 </ThemedText>
               </View>
               <View style={styles.userAvatars}>
                 <View style={styles.avatar}>
-                  <Text style={styles.avatarText}>T</Text>
+                  <Text style={styles.avatarText}>{playlist.avatars[0]}</Text>
                 </View>
                 <View style={[styles.avatar, styles.avatarOverlap]}>
-                  <Text style={styles.avatarTextGreen}>H</Text>
+                  <Text style={styles.avatarTextGreen}>
+                    {playlist.avatars[1]}
+                  </Text>
                 </View>
               </View>
             </TouchableOpacity>
