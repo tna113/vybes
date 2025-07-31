@@ -1,16 +1,16 @@
+import {Ionicons} from '@expo/vector-icons';
+import {router} from 'expo-router';
 import React, {useState} from 'react';
 import {
-  View,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  KeyboardAvoidingView,
-  Platform,
+  View,
 } from 'react-native';
-import {Ionicons} from '@expo/vector-icons';
-import {router} from 'expo-router';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
@@ -28,6 +28,10 @@ export default function LoginScreen() {
 
   const handleCreateAccount = () => {
     //TODO: VYBES-101: create account
+  };
+
+  const handleDebug = () => {
+    router.push('/debug');
   };
 
   return (
@@ -94,6 +98,12 @@ export default function LoginScreen() {
 
             <TouchableOpacity onPress={handleCreateAccount}>
               <Text style={styles.createAccountText}>create an account</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={handleDebug} style={styles.debugButton}>
+              <Text style={[styles.forgotPasswordText, styles.debugText]}>
+                debug
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -210,5 +220,15 @@ const styles = StyleSheet.create({
     color: '#7FB0A0',
     fontSize: 14,
     fontWeight: '500',
+  },
+  debugText: {
+    fontWeight: 'bold',
+    color: 'white',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  debugButton: {
+    marginTop: 200,
+    backgroundColor: '#B07F8F',
   },
 });
