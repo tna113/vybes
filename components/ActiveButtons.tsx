@@ -1,8 +1,8 @@
-import React from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {ThemedText} from '@/components/ThemedText';
 import {IconSymbol} from '@/components/ui/IconSymbol';
 import {useRouter} from 'expo-router';
+import React from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 
 export type ActiveButton = {
   title: string;
@@ -13,6 +13,7 @@ export type ActiveButton = {
 type ActiveButtonsProps = {
   activeButtons: ActiveButton[];
   onSearchPress?: () => void;
+  iconName?: string;
 };
 
 export default function ActiveButtons({
