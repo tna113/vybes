@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react';
 import { View, StyleSheet, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { IconSymbol } from '@/components/ui/IconSymbol';
@@ -37,22 +38,9 @@ type Track = {
   rating: number;
 };
 
-// Comments data
-const comments = [
-  {
-    user: 'thea a.',
-    comment: 'yeah i guess it was a good song i think it needed to be a little longer than that'
-  },
-  {
-    user: 'han n.',
-    comment: 'short songs are so good tho!!'
-  }
-];
-
 export default function DetailScreen() {
   const params = useLocalSearchParams();
   const router = useRouter();
-  const [activeButton, setActiveButton] = useState('alternative');
 
   // Parse the track object from navigation parameters
   const track: Track | null = params.track ? JSON.parse(params.track as string) : null;
@@ -68,12 +56,10 @@ export default function DetailScreen() {
     { 
       title: 'alternative', 
       screen: '',
-      onPress: () => setActiveButton('alternative')
     },
     { 
       title: 'han', 
       screen: '',
-      onPress: () => setActiveButton('han')
     }
   ];
 

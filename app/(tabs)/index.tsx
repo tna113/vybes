@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { useRouter } from 'expo-router';
@@ -7,7 +7,6 @@ import { ActiveButton } from '@/components/ActiveButtons';
 
 export default function ProfileScreen() {
   const router = useRouter();
-  const [activeButton, setActiveButton] = useState('notifications');
 
   const handlePlaylistPress = () => {
     router.push('/(tabs)/playlistItem');
@@ -17,17 +16,14 @@ export default function ProfileScreen() {
     { 
       title: 'create a playlist', 
       screen: '',
-      onPress: () => setActiveButton('create a playlist')
     },
     { 
       title: 'friends', 
       screen: '',
-      onPress: () => setActiveButton('friends')
     },
     { 
       title: 'notifications', 
       screen: '',
-      onPress: () => setActiveButton('notifications')
     }
   ];
 

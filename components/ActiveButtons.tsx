@@ -4,13 +4,13 @@ import { ThemedText } from '@/components/ThemedText';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { useRouter } from 'expo-router';
 
-export interface ActiveButton {
+export type ActiveButton = {
   title: string;
   screen: string;
   onPress?: () => void;
 }
 
-interface ActiveButtonsProps {
+type ActiveButtonsProps = {
   activeButtons: ActiveButton[];
   onSearchPress?: () => void;
 }
@@ -24,7 +24,12 @@ export default function ActiveButtons({ activeButtons, onSearchPress }: ActiveBu
     if (button.onPress) {
       button.onPress();
     } else if (button.screen && button.screen !== '') {
-      router.push(button.screen as any);
+      
+      // The type 'never' is used here because the router.push() from expo-router
+      // has a complex type signature that includes path parameters and query parameters.
+      // Using 'as string' would be incorrect since the path might include these parameters.
+      // expo-router's type system expects a specific path format that matches your app's routing structure.
+      router.push(button.screen as never);
     }
   };
 

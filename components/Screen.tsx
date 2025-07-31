@@ -6,7 +6,7 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import { useRouter } from 'expo-router';
 import ActiveButtons, { ActiveButton } from '@/components/ActiveButtons';
 
-interface ScreenProps {
+type ScreenProps = {
   enableEmptySpace?: boolean;
   iconName?: string;
   title: string;

@@ -18,19 +18,16 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = () => {
-    // Handle login logic here
-    console.log('Login attempt:', { username, password });
+    //TODO: VYBES-51: login logic
     router.push('/(tabs)');
   };
 
   const handleForgotPassword = () => {
-    // Handle forgot password logic
-    console.log('Forgot password pressed');
+    //TODO: VYBES-100: forgot password
   };
 
   const handleCreateAccount = () => {
-    // Handle create account logic
-    console.log('Create account pressed');
+    //TODO: VYBES-101: create account
   };
 
   return (

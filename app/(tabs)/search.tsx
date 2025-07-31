@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, ScrollView, Text, TextInput } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
+import { View, StyleSheet, ScrollView, TextInput } from 'react-native';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import Screen from '@/components/Screen';
 import  { ActiveButton } from '@/components/ActiveButtons';
 
 export default function SearchScreen() {
+  //TODO: VYBES-97 : connect search filters to search bar component
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeButton, setActiveButton] = useState('song');
 
   const activeButtons: ActiveButton[] = [
