@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { useRouter } from 'expo-router';
-import Screen, { ActiveButton } from '@/components/Screen';
+import Screen from '@/components/Screen';
+import { ActiveButton } from '@/components/ActiveButtons';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -11,11 +12,16 @@ export default function SettingsScreen() {
   const [notifications, setNotifications] = useState('on');
   const [navigationLabels, setNavigationLabels] = useState('on');
 
+  const handleBackPress = () => {
+    router.push('/(tabs)/user');
+  };
+
   return (
     <Screen
       iconName="back"
       title="settings"
       subtitle="and preferences"
+      onBackPress={handleBackPress}
     >
       <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
         {/* Theme Section */}

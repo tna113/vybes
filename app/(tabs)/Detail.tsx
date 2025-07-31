@@ -4,7 +4,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import Screen from '@/components/Screen';
 import { ActiveButton } from '@/components/ActiveButtons';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 // StarRating component
 const StarRating = ({ rating }: { rating: number }) => {
@@ -51,6 +51,7 @@ const comments = [
 
 export default function DetailScreen() {
   const params = useLocalSearchParams();
+  const router = useRouter();
   const [activeButton, setActiveButton] = useState('alternative');
 
   // Parse the track object from navigation parameters
@@ -58,6 +59,10 @@ export default function DetailScreen() {
 
   // Parse comments from the track object
   const trackComments = track?.comments ? (track.comments as any) : [];
+
+  const handleBackPress = () => {
+    router.push('/(tabs)/playlistItem');
+  };
 
   const activeButtons: ActiveButton[] = [
     { 
@@ -92,6 +97,7 @@ export default function DetailScreen() {
       subtitle={track?.artist_name || "artist name"}
       activeButtons={activeButtons}
       starRating={<StarRating rating={track?.rating || 0} />}
+      onBackPress={handleBackPress}
     >
       <View style={styles.container}>
         <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
