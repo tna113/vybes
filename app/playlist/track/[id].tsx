@@ -13,11 +13,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Track} from '../types';
+import {Track} from '../../../types';
 
-export default function DetailScreen() {
+export default function TrackDetailScreen() {
   const params = useLocalSearchParams();
   const router = useRouter();
+  const playlistId = params.playlistId as string;
 
   // Parse the track object from navigation parameters
   const track: Track | null = params.track
@@ -28,7 +29,7 @@ export default function DetailScreen() {
   const trackComments = track?.comments ? (track.comments as any) : [];
 
   const handleBackPress = () => {
-    router.push('/(tabs)/playlistItem');
+    router.push(`/playlist/${playlistId}`);
   };
 
   const activeButtons: ActiveButton[] = [

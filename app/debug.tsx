@@ -3,7 +3,7 @@ import Screen from '@/components/Screen';
 import {createClient} from '@supabase/supabase-js';
 import {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import {Track} from './types';
+import {Track} from '../types';
 
 // Create a single supabase client for interacting with your database
 const url = 'https://zwbbzxleomraswznvsnd.supabase.co';
