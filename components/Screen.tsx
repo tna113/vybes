@@ -15,6 +15,7 @@ interface ScreenProps {
   onSearchPress?: () => void;
   children: React.ReactNode;
   starRating?: React.ReactNode;
+  onBackPress?: () => void;
 }
 
 export default function Screen({ 
@@ -25,12 +26,17 @@ export default function Screen({
   activeButtons = [], 
   onSearchPress,
   children,
-  starRating
+  starRating,
+  onBackPress
 }: ScreenProps) {
   const router = useRouter();
 
   const handleBackPress = () => {
-    router.back();
+    if (onBackPress) {
+      onBackPress();
+    } else {
+      router.back();
+    }
   };
 
   return (

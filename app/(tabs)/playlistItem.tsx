@@ -211,7 +211,7 @@ export default function PlaylistItemScreen() {
   const handleTrackPress = (track: Track) => {
     // Navigate to Detail screen with track object as parameter
     router.push({
-      pathname: '/(tabs)/Detail',
+      pathname: '/(tabs)/detail',
       params: { track: JSON.stringify(track) }
     });
   };

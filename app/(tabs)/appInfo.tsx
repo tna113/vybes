@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import Screen from '@/components/Screen';
+import { useRouter } from 'expo-router';
 
 export default function AppInfoScreen() {
+  const router = useRouter();
   const [isCoffeeButtonActive, setIsCoffeeButtonActive] = useState(true);
 
   const handleCoffeeButtonPress = () => {
     Linking.openURL('https://google.com');
+  };
+
+  const handleBackPress = () => {
+    router.push('/(tabs)/user');
   };
 
   return (
@@ -15,6 +21,7 @@ export default function AppInfoScreen() {
       iconName="back"
       title="app info"
       subtitle="thanks for using this app :)"
+      onBackPress={handleBackPress}
     >
       <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
         {/* Info Items Section */}
