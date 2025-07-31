@@ -24,4 +24,12 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  overrides: [
+    {
+      files: ['types/**/*', 'app/types/**/*'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': 'off',
+      },
+    },
+  ],
 };
