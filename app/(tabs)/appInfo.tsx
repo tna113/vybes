@@ -1,8 +1,14 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, ScrollView, Linking } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Linking,
+} from 'react-native';
+import {ThemedText} from '@/components/ThemedText';
 import Screen from '@/components/Screen';
-import { useRouter } from 'expo-router';
+import {useRouter} from 'expo-router';
 
 export default function AppInfoScreen() {
   const router = useRouter();
@@ -17,12 +23,13 @@ export default function AppInfoScreen() {
 
   return (
     <Screen
-      iconName="back"
-      title="app info"
-      subtitle="thanks for using this app :)"
-      onBackPress={handleBackPress}
-    >
-      <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
+      iconName='back'
+      title='app info'
+      subtitle='thanks for using this app :)'
+      onBackPress={handleBackPress}>
+      <ScrollView
+        style={styles.contentSection}
+        showsVerticalScrollIndicator={false}>
         {/* Info Items Section */}
         <View style={styles.infoSection}>
           <View style={styles.infoItem}>
@@ -41,13 +48,9 @@ export default function AppInfoScreen() {
 
         {/* Coffee Button */}
         <View style={styles.coffeeButtonSection}>
-          <TouchableOpacity 
-            style={[
-              styles.coffeeButton,
-              styles.activeCoffeeButton
-            ]}
-            onPress={handleCoffeeButtonPress}
-          >
+          <TouchableOpacity
+            style={[styles.coffeeButton, styles.activeCoffeeButton]}
+            onPress={handleCoffeeButtonPress}>
             <ThemedText style={styles.activeCoffeeButtonText}>
               buy me a coffee!
             </ThemedText>
@@ -109,4 +112,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
-}); 
+});

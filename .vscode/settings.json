@@ -14,4 +14,4 @@
   "editor.formatOnSave": true,
   "typescript.preferences.includePackageJsonAutoImports": "on",
   "eslint.run": "onType"
-} 
+}

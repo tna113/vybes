@@ -1,21 +1,24 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import { useRouter } from 'expo-router';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {ThemedText} from '@/components/ThemedText';
+import {IconSymbol} from '@/components/ui/IconSymbol';
+import {useRouter} from 'expo-router';
 
 export type ActiveButton = {
   title: string;
   screen: string;
   onPress?: () => void;
-}
+};
 
 type ActiveButtonsProps = {
   activeButtons: ActiveButton[];
   onSearchPress?: () => void;
-}
+};
 
-export default function ActiveButtons({ activeButtons, onSearchPress }: ActiveButtonsProps) {
+export default function ActiveButtons({
+  activeButtons,
+  onSearchPress,
+}: ActiveButtonsProps) {
   const router = useRouter();
   const [activeButton, setActiveButton] = React.useState<string>('');
 
@@ -24,7 +27,6 @@ export default function ActiveButtons({ activeButtons, onSearchPress }: ActiveBu
     if (button.onPress) {
       button.onPress();
     } else if (button.screen && button.screen !== '') {
-      
       // The type 'never' is used here because the router.push() from expo-router
       // has a complex type signature that includes path parameters and query parameters.
       // Using 'as string' would be incorrect since the path might include these parameters.
@@ -41,24 +43,28 @@ export default function ActiveButtons({ activeButtons, onSearchPress }: ActiveBu
     <View style={styles.actionButtons}>
       <View style={styles.buttonsContainer}>
         {activeButtons.map((button, index) => (
-          <TouchableOpacity 
+          <TouchableOpacity
             key={index}
             style={[
               styles.actionButton,
-              activeButton === button.title && styles.activeButton
+              activeButton === button.title && styles.activeButton,
             ]}
-            onPress={() => handleActiveButtonPress(button)}
-          >
-            <ThemedText style={activeButton === button.title ? styles.activeButtonText : styles.actionButtonText}>
+            onPress={() => handleActiveButtonPress(button)}>
+            <ThemedText
+              style={
+                activeButton === button.title
+                  ? styles.activeButtonText
+                  : styles.actionButtonText
+              }>
               {button.title}
             </ThemedText>
           </TouchableOpacity>
         ))}
       </View>
-      
+
       {onSearchPress && (
         <TouchableOpacity style={styles.searchButton} onPress={onSearchPress}>
-          <IconSymbol size={20} name="magnifyingglass" color={'#FFFFFF'} />
+          <IconSymbol size={20} name='magnifyingglass' color={'#FFFFFF'} />
         </TouchableOpacity>
       )}
     </View>
@@ -106,4 +112,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-}); 
+});

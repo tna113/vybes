@@ -1,9 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { useRouter } from 'expo-router';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Text,
+} from 'react-native';
+import {ThemedText} from '@/components/ThemedText';
+import {useRouter} from 'expo-router';
 import Screen from '@/components/Screen';
-import { ActiveButton } from '@/components/ActiveButtons';
+import {ActiveButton} from '@/components/ActiveButtons';
 
 export default function ProfileScreen() {
   const router = useRouter();
@@ -13,35 +19,43 @@ export default function ProfileScreen() {
   };
 
   const activeButtons: ActiveButton[] = [
-    { 
-      title: 'create a playlist', 
+    {
+      title: 'create a playlist',
       screen: '',
     },
-    { 
-      title: 'friends', 
+    {
+      title: 'friends',
       screen: '',
     },
-    { 
-      title: 'notifications', 
+    {
+      title: 'notifications',
       screen: '',
-    }
+    },
   ];
 
   return (
     <Screen
-      iconName="V"
-      title="playlists"
-      subtitle="sharing 3 playlists"
-      activeButtons={activeButtons}
-    >
-      <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
+      iconName='V'
+      title='playlists'
+      subtitle='sharing 3 playlists'
+      activeButtons={activeButtons}>
+      <ScrollView
+        style={styles.contentSection}
+        showsVerticalScrollIndicator={false}>
         {/* Playlist List */}
         <View style={styles.playlistSection}>
           {[1, 2, 3].map((item, index) => (
-            <TouchableOpacity key={index} style={styles.playlistItem} onPress={handlePlaylistPress}>
+            <TouchableOpacity
+              key={index}
+              style={styles.playlistItem}
+              onPress={handlePlaylistPress}>
               <View style={styles.playlistInfo}>
-                <ThemedText style={styles.playlistName}>playlistname</ThemedText>
-                <ThemedText style={styles.playlistSubtitle}>12 songs shared with han</ThemedText>
+                <ThemedText style={styles.playlistName}>
+                  playlistname
+                </ThemedText>
+                <ThemedText style={styles.playlistSubtitle}>
+                  12 songs shared with han
+                </ThemedText>
               </View>
               <View style={styles.userAvatars}>
                 <View style={styles.avatar}>
@@ -111,4 +125,4 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 14,
   },
-}); 
+});
