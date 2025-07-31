@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { IconSymbol } from '@/components/ui/IconSymbol';
@@ -6,7 +6,6 @@ import { useRouter } from 'expo-router';
 import Screen from '@/components/Screen';
 import { ActiveButton } from '@/components/ActiveButtons';
 
-// Track type definition
 type Track = {
   spotify_track_id: string;
   track_name: string;
@@ -23,9 +22,7 @@ type Track = {
 
 export default function PlaylistItemScreen() {
   const router = useRouter();
-  const [activeFilter, setActiveFilter] = useState('han');
 
-  // Sample track data matching the specified structure
   const tracks: Track[] = [
     { 
       spotify_track_id: 'spotify:track:1', 
@@ -189,29 +186,25 @@ export default function PlaylistItemScreen() {
     { 
       title: 'han', 
       screen: '',
-      onPress: () => setActiveFilter('han')
     },
     { 
       title: 'thea', 
       screen: '',
-      onPress: () => setActiveFilter('thea')
     },
     { 
       title: 'unrated', 
       screen: '',
-      onPress: () => setActiveFilter('unrated')
     }
   ];
 
-  const handleSearchPress = () => {
-    // Handle search functionality
-    console.log('Search pressed');
+  const handleAddComment = () => {
+    //TODO: VYBES-13: handle add comment to a song
   };
 
   const handleTrackPress = (track: Track) => {
     // Navigate to Detail screen with track object as parameter
     router.push({
-      pathname: '/(tabs)/detail',
+      pathname: '/(tabs)/detail' as never,
       params: { track: JSON.stringify(track) }
     });
   };
@@ -222,7 +215,7 @@ export default function PlaylistItemScreen() {
       title="playlistname"
       subtitle="12 songs"
       activeButtons={activeButtons}
-      onSearchPress={handleSearchPress}
+      onSearchPress={handleAddComment}
     >
       <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
         {/* Track List */}

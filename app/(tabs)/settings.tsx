@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { useRouter } from 'expo-router';
 import Screen from '@/components/Screen';
-import { ActiveButton } from '@/components/ActiveButtons';
 
 export default function SettingsScreen() {
   const router = useRouter();

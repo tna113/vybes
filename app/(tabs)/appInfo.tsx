@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import Screen from '@/components/Screen';
@@ -6,7 +6,6 @@ import { useRouter } from 'expo-router';
 
 export default function AppInfoScreen() {
   const router = useRouter();
-  const [isCoffeeButtonActive, setIsCoffeeButtonActive] = useState(true);
 
   const handleCoffeeButtonPress = () => {
     Linking.openURL('https://google.com');
@@ -45,11 +44,11 @@ export default function AppInfoScreen() {
           <TouchableOpacity 
             style={[
               styles.coffeeButton,
-              isCoffeeButtonActive && styles.activeCoffeeButton
+              styles.activeCoffeeButton
             ]}
             onPress={handleCoffeeButtonPress}
           >
-            <ThemedText style={isCoffeeButtonActive ? styles.activeCoffeeButtonText : styles.coffeeButtonText}>
+            <ThemedText style={styles.activeCoffeeButtonText}>
               buy me a coffee!
             </ThemedText>
           </TouchableOpacity>
