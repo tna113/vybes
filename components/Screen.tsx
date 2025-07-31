@@ -1,10 +1,11 @@
-import React from 'react';
-import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import ActiveButtons, {ActiveButton} from '@/components/ActiveButtons';
 import {ThemedText} from '@/components/ThemedText';
 import {IconSymbol} from '@/components/ui/IconSymbol';
 import {useRouter} from 'expo-router';
-import ActiveButtons, {ActiveButton} from '@/components/ActiveButtons';
+import React from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import StarRating from './StarRating';
 
 type ScreenProps = {
   enableEmptySpace?: boolean;
@@ -14,7 +15,7 @@ type ScreenProps = {
   activeButtons?: ActiveButton[];
   onSearchPress?: () => void;
   children: React.ReactNode;
-  starRating?: React.ReactNode;
+  starRating?: number;
   onBackPress?: () => void;
 };
 
@@ -65,7 +66,9 @@ export default function Screen({
 
         {/* Star Rating - Positioned at the end of header */}
         {starRating && (
-          <View style={styles.starRatingWrapper}>{starRating}</View>
+          <View style={styles.starRatingWrapper}>
+            <StarRating rating={starRating || 0} />
+          </View>
         )}
       </View>
 

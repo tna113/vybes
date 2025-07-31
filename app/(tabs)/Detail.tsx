@@ -1,49 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import {ActiveButton} from '@/components/ActiveButtons';
+import Screen from '@/components/Screen';
+import {ThemedText} from '@/components/ThemedText';
+import {IconSymbol} from '@/components/ui/IconSymbol';
+import {useLocalSearchParams, useRouter} from 'expo-router';
 import React from 'react';
 import {
-  View,
-  StyleSheet,
   ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import {ThemedText} from '@/components/ThemedText';
-import {IconSymbol} from '@/components/ui/IconSymbol';
-import Screen from '@/components/Screen';
-import {ActiveButton} from '@/components/ActiveButtons';
-import {useLocalSearchParams, useRouter} from 'expo-router';
-
-// StarRating component
-const StarRating = ({rating}: {rating: number}) => {
-  return (
-    <View style={styles.starRatingContainer}>
-      {[1, 2, 3, 4, 5].map((starIndex) => (
-        <IconSymbol
-          key={starIndex}
-          size={48}
-          name='star.fill'
-          color={starIndex <= rating ? '#5E8D78' : '#1F3D31'}
-        />
-      ))}
-    </View>
-  );
-};
-
-// Track type definition
-type Track = {
-  spotify_track_id: string;
-  track_name: string;
-  artist_id: string;
-  artist_name: string;
-  album_id: string;
-  genre: string;
-  duration_ms: number;
-  spotify_uri: string;
-  created_at: string;
-  comments: JSON;
-  rating: number;
-};
+import {Track} from '../types';
 
 export default function DetailScreen() {
   const params = useLocalSearchParams();
@@ -91,7 +61,7 @@ export default function DetailScreen() {
       title={track?.track_name || 'track name'}
       subtitle={track?.artist_name || 'artist name'}
       activeButtons={activeButtons}
-      starRating={<StarRating rating={track?.rating || 0} />}
+      starRating={track?.rating || 0}
       onBackPress={handleBackPress}>
       <View style={styles.container}>
         <ScrollView
@@ -208,10 +178,5 @@ const styles = StyleSheet.create({
   sendButton: {
     marginLeft: 8,
     padding: 4,
-  },
-  starRatingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
   },
 });

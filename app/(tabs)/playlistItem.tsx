@@ -1,30 +1,17 @@
-import React from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Text,
-} from 'react-native';
+import {ActiveButton} from '@/components/ActiveButtons';
+import Screen from '@/components/Screen';
 import {ThemedText} from '@/components/ThemedText';
 import {IconSymbol} from '@/components/ui/IconSymbol';
 import {useRouter} from 'expo-router';
-import Screen from '@/components/Screen';
-import {ActiveButton} from '@/components/ActiveButtons';
-
-type Track = {
-  spotify_track_id: string;
-  track_name: string;
-  artist_id: string;
-  artist_name: string;
-  album_id: string;
-  genre: string;
-  duration_ms: number;
-  spotify_uri: string;
-  created_at: string;
-  comments: JSON;
-  rating: number;
-};
+import React from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {Track} from '../types';
 
 export default function PlaylistItemScreen() {
   const router = useRouter();
