@@ -1,39 +1,40 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { useRouter } from 'expo-router';
+import {View, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
+import {ThemedText} from '@/components/ThemedText';
+import {useRouter} from 'expo-router';
 import Screen from '@/components/Screen';
-import  { ActiveButton } from '@/components/ActiveButtons';
+import {ActiveButton} from '@/components/ActiveButtons';
 
 export default function ProfileScreen() {
   const router = useRouter();
 
   const activeButtons: ActiveButton[] = [
-    { 
-      title: 'settings', 
+    {
+      title: 'settings',
       screen: '/(tabs)/settings',
       onPress: () => {
         router.push('/(tabs)/settings');
-      }
+      },
     },
-    { 
-      title: 'app info', 
+    {
+      title: 'app info',
       screen: '/(tabs)/appInfo',
       onPress: () => {
         router.push('/(tabs)/appInfo');
-      }
-    }
+      },
+    },
   ];
 
   return (
     <Screen
       enableEmptySpace={true}
-      iconName=" "
-      title="username"
-      subtitle="@spotify_id"
-      activeButtons={activeButtons}
-    >
-      <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
+      iconName=' '
+      title='username'
+      subtitle='@spotify_id'
+      activeButtons={activeButtons}>
+      <ScrollView
+        style={styles.contentSection}
+        showsVerticalScrollIndicator={false}>
         {/* User Statistics Section */}
         <View style={styles.statsSection}>
           <View style={styles.statItem}>
@@ -95,4 +96,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
-}); 
+});

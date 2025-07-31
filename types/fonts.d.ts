@@ -6,4 +6,4 @@ declare module '*.ttf' {
 declare module '*.otf' {
   const content: string;
   export default content;
-} 
+}

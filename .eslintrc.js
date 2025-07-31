@@ -1,19 +1,16 @@
 // https://docs.expo.dev/guides/using-eslint/
 module.exports = {
-  extends: [
-    'expo',
-    'plugin:@typescript-eslint/recommended'
-  ],
+  extends: ['expo', 'plugin:@typescript-eslint/recommended'],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   ignorePatterns: ['/dist/*'],
   rules: {
     // Disable the built-in no-unused-vars rule to avoid conflicts
     'no-unused-vars': 'off',
-    
+
     // Use TypeScript ESLint's version instead
     '@typescript-eslint/no-unused-vars': 'error',
-    
+
     // Other rules set to warning level
     'no-console': 'warn',
     'prefer-const': 'warn',

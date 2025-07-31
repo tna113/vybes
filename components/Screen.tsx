@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ThemedText } from '@/components/ThemedText';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import { useRouter } from 'expo-router';
-import ActiveButtons, { ActiveButton } from '@/components/ActiveButtons';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {ThemedText} from '@/components/ThemedText';
+import {IconSymbol} from '@/components/ui/IconSymbol';
+import {useRouter} from 'expo-router';
+import ActiveButtons, {ActiveButton} from '@/components/ActiveButtons';
 
 type ScreenProps = {
   enableEmptySpace?: boolean;
@@ -16,18 +16,18 @@ type ScreenProps = {
   children: React.ReactNode;
   starRating?: React.ReactNode;
   onBackPress?: () => void;
-}
+};
 
-export default function Screen({ 
+export default function Screen({
   enableEmptySpace = false,
-  iconName, 
-  title, 
-  subtitle, 
-  activeButtons = [], 
+  iconName,
+  title,
+  subtitle,
+  activeButtons = [],
   onSearchPress,
   children,
   starRating,
-  onBackPress
+  onBackPress,
 }: ScreenProps) {
   const router = useRouter();
 
@@ -45,35 +45,38 @@ export default function Screen({
       <View style={styles.headerSection}>
         {iconName === 'back' ? (
           <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
-            <IconSymbol size={24} name="arrow.left" color={'#FFFFFF'} />
+            <IconSymbol size={24} name='arrow.left' color={'#FFFFFF'} />
           </TouchableOpacity>
         ) : iconName ? (
           <View style={styles.profileIcon}>
             <Text style={styles.profileText}>{iconName}</Text>
           </View>
         ) : null}
-        
+
         <View style={styles.titleSection}>
           <ThemedText style={styles.title}>{title}</ThemedText>
-          {subtitle && <ThemedText style={styles.subtitle}>{subtitle}</ThemedText>}
+          {subtitle && (
+            <ThemedText style={styles.subtitle}>{subtitle}</ThemedText>
+          )}
 
           {/* Large Empty Space */}
           {enableEmptySpace && <View style={styles.emptySpace} />}
         </View>
-        
+
         {/* Star Rating - Positioned at the end of header */}
         {starRating && (
-          <View style={styles.starRatingWrapper}>
-            {starRating}
-          </View>
+          <View style={styles.starRatingWrapper}>{starRating}</View>
         )}
       </View>
 
       {/* Part 2: Scrollable Content Section */}
       <View style={styles.contentSection}>
         {/* Active Buttons */}
-        <ActiveButtons activeButtons={activeButtons} onSearchPress={onSearchPress} />
-        
+        <ActiveButtons
+          activeButtons={activeButtons}
+          onSearchPress={onSearchPress}
+        />
+
         {/* Children Content */}
         {children}
       </View>
@@ -138,4 +141,4 @@ const styles = StyleSheet.create({
     marginTop: 8,
     alignSelf: 'flex-end',
   },
-}); 
+});

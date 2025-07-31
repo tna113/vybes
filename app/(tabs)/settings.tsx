@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { useRouter } from 'expo-router';
+import React, {useState} from 'react';
+import {View, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
+import {ThemedText} from '@/components/ThemedText';
+import {useRouter} from 'expo-router';
 import Screen from '@/components/Screen';
 
 export default function SettingsScreen() {
@@ -17,42 +17,61 @@ export default function SettingsScreen() {
 
   return (
     <Screen
-      iconName="back"
-      title="settings"
-      subtitle="and preferences"
-      onBackPress={handleBackPress}
-    >
-      <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
+      iconName='back'
+      title='settings'
+      subtitle='and preferences'
+      onBackPress={handleBackPress}>
+      <ScrollView
+        style={styles.contentSection}
+        showsVerticalScrollIndicator={false}>
         {/* Theme Section */}
         <View style={styles.section}>
           <ThemedText style={styles.sectionTitle}>theme</ThemedText>
           <View style={styles.buttonGroup}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.actionButton,
-                theme === 'dark' && styles.activeButton
+                theme === 'dark' && styles.activeButton,
               ]}
-              onPress={() => setTheme('dark')}
-            >
-              <ThemedText style={theme === 'dark' ? styles.activeButtonText : styles.actionButtonText}>dark</ThemedText>
+              onPress={() => setTheme('dark')}>
+              <ThemedText
+                style={
+                  theme === 'dark'
+                    ? styles.activeButtonText
+                    : styles.actionButtonText
+                }>
+                dark
+              </ThemedText>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.actionButton,
-                theme === 'light' && styles.activeButton
+                theme === 'light' && styles.activeButton,
               ]}
-              onPress={() => setTheme('light')}
-            >
-              <ThemedText style={theme === 'light' ? styles.activeButtonText : styles.actionButtonText}>light</ThemedText>
+              onPress={() => setTheme('light')}>
+              <ThemedText
+                style={
+                  theme === 'light'
+                    ? styles.activeButtonText
+                    : styles.actionButtonText
+                }>
+                light
+              </ThemedText>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.actionButton,
-                theme === 'system' && styles.activeButton
+                theme === 'system' && styles.activeButton,
               ]}
-              onPress={() => setTheme('system')}
-            >
-              <ThemedText style={theme === 'system' ? styles.activeButtonText : styles.actionButtonText}>system</ThemedText>
+              onPress={() => setTheme('system')}>
+              <ThemedText
+                style={
+                  theme === 'system'
+                    ? styles.activeButtonText
+                    : styles.actionButtonText
+                }>
+                system
+              </ThemedText>
             </TouchableOpacity>
           </View>
         </View>
@@ -61,41 +80,65 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <ThemedText style={styles.sectionTitle}>highlight color</ThemedText>
           <View style={styles.buttonGroup}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.actionButton,
-                highlightColor === 'green' && styles.activeButton
+                highlightColor === 'green' && styles.activeButton,
               ]}
-              onPress={() => setHighlightColor('green')}
-            >
-              <ThemedText style={highlightColor === 'green' ? styles.activeButtonText : styles.actionButtonText}>green</ThemedText>
+              onPress={() => setHighlightColor('green')}>
+              <ThemedText
+                style={
+                  highlightColor === 'green'
+                    ? styles.activeButtonText
+                    : styles.actionButtonText
+                }>
+                green
+              </ThemedText>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.actionButton,
-                highlightColor === 'yellow' && styles.activeButton
+                highlightColor === 'yellow' && styles.activeButton,
               ]}
-              onPress={() => setHighlightColor('yellow')}
-            >
-              <ThemedText style={highlightColor === 'yellow' ? styles.activeButtonText : styles.actionButtonText}>yellow</ThemedText>
+              onPress={() => setHighlightColor('yellow')}>
+              <ThemedText
+                style={
+                  highlightColor === 'yellow'
+                    ? styles.activeButtonText
+                    : styles.actionButtonText
+                }>
+                yellow
+              </ThemedText>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.actionButton,
-                highlightColor === 'blue' && styles.activeButton
+                highlightColor === 'blue' && styles.activeButton,
               ]}
-              onPress={() => setHighlightColor('blue')}
-            >
-              <ThemedText style={highlightColor === 'blue' ? styles.activeButtonText : styles.actionButtonText}>blue</ThemedText>
+              onPress={() => setHighlightColor('blue')}>
+              <ThemedText
+                style={
+                  highlightColor === 'blue'
+                    ? styles.activeButtonText
+                    : styles.actionButtonText
+                }>
+                blue
+              </ThemedText>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.actionButton,
-                highlightColor === 'lavender' && styles.activeButton
+                highlightColor === 'lavender' && styles.activeButton,
               ]}
-              onPress={() => setHighlightColor('lavender')}
-            >
-              <ThemedText style={highlightColor === 'lavender' ? styles.activeButtonText : styles.actionButtonText}>lavender</ThemedText>
+              onPress={() => setHighlightColor('lavender')}>
+              <ThemedText
+                style={
+                  highlightColor === 'lavender'
+                    ? styles.activeButtonText
+                    : styles.actionButtonText
+                }>
+                lavender
+              </ThemedText>
             </TouchableOpacity>
           </View>
         </View>
@@ -104,23 +147,35 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <ThemedText style={styles.sectionTitle}>notifications</ThemedText>
           <View style={styles.buttonGroup}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.actionButton,
-                notifications === 'on' && styles.activeButton
+                notifications === 'on' && styles.activeButton,
               ]}
-              onPress={() => setNotifications('on')}
-            >
-              <ThemedText style={notifications === 'on' ? styles.activeButtonText : styles.actionButtonText}>on</ThemedText>
+              onPress={() => setNotifications('on')}>
+              <ThemedText
+                style={
+                  notifications === 'on'
+                    ? styles.activeButtonText
+                    : styles.actionButtonText
+                }>
+                on
+              </ThemedText>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.actionButton,
-                notifications === 'off' && styles.activeButton
+                notifications === 'off' && styles.activeButton,
               ]}
-              onPress={() => setNotifications('off')}
-            >
-              <ThemedText style={notifications === 'off' ? styles.activeButtonText : styles.actionButtonText}>off</ThemedText>
+              onPress={() => setNotifications('off')}>
+              <ThemedText
+                style={
+                  notifications === 'off'
+                    ? styles.activeButtonText
+                    : styles.actionButtonText
+                }>
+                off
+              </ThemedText>
             </TouchableOpacity>
           </View>
         </View>
@@ -129,23 +184,35 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <ThemedText style={styles.sectionTitle}>navigation labels</ThemedText>
           <View style={styles.buttonGroup}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.actionButton,
-                navigationLabels === 'on' && styles.activeButton
+                navigationLabels === 'on' && styles.activeButton,
               ]}
-              onPress={() => setNavigationLabels('on')}
-            >
-              <ThemedText style={navigationLabels === 'on' ? styles.activeButtonText : styles.actionButtonText}>on</ThemedText>
+              onPress={() => setNavigationLabels('on')}>
+              <ThemedText
+                style={
+                  navigationLabels === 'on'
+                    ? styles.activeButtonText
+                    : styles.actionButtonText
+                }>
+                on
+              </ThemedText>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.actionButton,
-                navigationLabels === 'off' && styles.activeButton
+                navigationLabels === 'off' && styles.activeButton,
               ]}
-              onPress={() => setNavigationLabels('off')}
-            >
-              <ThemedText style={navigationLabels === 'off' ? styles.activeButtonText : styles.actionButtonText}>off</ThemedText>
+              onPress={() => setNavigationLabels('off')}>
+              <ThemedText
+                style={
+                  navigationLabels === 'off'
+                    ? styles.activeButtonText
+                    : styles.actionButtonText
+                }>
+                off
+              </ThemedText>
             </TouchableOpacity>
           </View>
         </View>
@@ -198,4 +265,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
-}); 
+});

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, TextInput } from 'react-native';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import React, {useState} from 'react';
+import {View, StyleSheet, ScrollView, TextInput} from 'react-native';
+import {IconSymbol} from '@/components/ui/IconSymbol';
 import Screen from '@/components/Screen';
-import  { ActiveButton } from '@/components/ActiveButtons';
+import {ActiveButton} from '@/components/ActiveButtons';
 
 export default function SearchScreen() {
   //TODO: VYBES-97 : connect search filters to search bar component
@@ -10,44 +10,45 @@ export default function SearchScreen() {
   const [activeButton, setActiveButton] = useState('song');
 
   const activeButtons: ActiveButton[] = [
-    { 
-      title: 'song', 
+    {
+      title: 'song',
       screen: '',
-      onPress: () => setActiveButton('song')
+      onPress: () => setActiveButton('song'),
     },
-    { 
-      title: 'artist', 
+    {
+      title: 'artist',
       screen: '',
-      onPress: () => setActiveButton('artist')
+      onPress: () => setActiveButton('artist'),
     },
-    { 
-      title: 'album', 
+    {
+      title: 'album',
       screen: '',
-      onPress: () => setActiveButton('album')
+      onPress: () => setActiveButton('album'),
     },
-    { 
-      title: 'user', 
+    {
+      title: 'user',
       screen: '',
-      onPress: () => setActiveButton('user')
-    }
+      onPress: () => setActiveButton('user'),
+    },
   ];
 
   return (
     <Screen
-      iconName=" "
-      title="search"
-      subtitle="subtitle"
-      activeButtons={activeButtons}
-    >
-      <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
+      iconName=' '
+      title='search'
+      subtitle='subtitle'
+      activeButtons={activeButtons}>
+      <ScrollView
+        style={styles.contentSection}
+        showsVerticalScrollIndicator={false}>
         {/* Search Input Bar */}
         <View style={styles.searchSection}>
           <View style={styles.searchInputContainer}>
-            <IconSymbol size={28} name="magnifyingglass" color={'#A9A9A9'} />
-            <TextInput 
+            <IconSymbol size={28} name='magnifyingglass' color={'#A9A9A9'} />
+            <TextInput
               style={styles.searchInput}
-              placeholder="Search..."
-              placeholderTextColor="#868686"
+              placeholder='Search...'
+              placeholderTextColor='#868686'
             />
           </View>
         </View>
@@ -82,4 +83,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingLeft: 8,
   },
-}); 
+});

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,8 +9,8 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import {Ionicons} from '@expo/vector-icons';
+import {router} from 'expo-router';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
@@ -34,8 +34,7 @@ export default function LoginScreen() {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboardView}
-      >
+        style={styles.keyboardView}>
         <View style={styles.content}>
           {/* Logo */}
           <View style={styles.logoContainer}>
@@ -51,33 +50,32 @@ export default function LoginScreen() {
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.input}
-              placeholder="username"
-              placeholderTextColor="#9BA1A6"
+              placeholder='username'
+              placeholderTextColor='#9BA1A6'
               value={username}
               onChangeText={setUsername}
-              autoCapitalize="none"
+              autoCapitalize='none'
               autoCorrect={false}
             />
-            
+
             <View style={styles.passwordContainer}>
               <TextInput
                 style={styles.passwordInput}
-                placeholder="password"
-                placeholderTextColor="#9BA1A6"
+                placeholder='password'
+                placeholderTextColor='#9BA1A6'
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry={!showPassword}
-                autoCapitalize="none"
+                autoCapitalize='none'
                 autoCorrect={false}
               />
               <TouchableOpacity
                 style={styles.eyeIcon}
-                onPress={() => setShowPassword(!showPassword)}
-              >
+                onPress={() => setShowPassword(!showPassword)}>
                 <Ionicons
                   name={showPassword ? 'eye-off' : 'eye'}
                   size={20}
-                  color="#9BA1A6"
+                  color='#9BA1A6'
                 />
               </TouchableOpacity>
             </View>
@@ -93,7 +91,7 @@ export default function LoginScreen() {
             <TouchableOpacity onPress={handleForgotPassword}>
               <Text style={styles.forgotPasswordText}>forgot password</Text>
             </TouchableOpacity>
-            
+
             <TouchableOpacity onPress={handleCreateAccount}>
               <Text style={styles.createAccountText}>create an account</Text>
             </TouchableOpacity>
@@ -213,4 +211,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
-}); 
+});

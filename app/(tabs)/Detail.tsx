@@ -1,22 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { View, StyleSheet, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import {ThemedText} from '@/components/ThemedText';
+import {IconSymbol} from '@/components/ui/IconSymbol';
 import Screen from '@/components/Screen';
-import { ActiveButton } from '@/components/ActiveButtons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import {ActiveButton} from '@/components/ActiveButtons';
+import {useLocalSearchParams, useRouter} from 'expo-router';
 
 // StarRating component
-const StarRating = ({ rating }: { rating: number }) => {
+const StarRating = ({rating}: {rating: number}) => {
   return (
     <View style={styles.starRatingContainer}>
       {[1, 2, 3, 4, 5].map((starIndex) => (
         <IconSymbol
           key={starIndex}
           size={48}
-          name="star.fill"
-          color={starIndex <= rating ? "#5E8D78" : "#1F3D31"}
+          name='star.fill'
+          color={starIndex <= rating ? '#5E8D78' : '#1F3D31'}
         />
       ))}
     </View>
@@ -43,7 +50,9 @@ export default function DetailScreen() {
   const router = useRouter();
 
   // Parse the track object from navigation parameters
-  const track: Track | null = params.track ? JSON.parse(params.track as string) : null;
+  const track: Track | null = params.track
+    ? JSON.parse(params.track as string)
+    : null;
 
   // Parse comments from the track object
   const trackComments = track?.comments ? (track.comments as any) : [];
@@ -53,14 +62,14 @@ export default function DetailScreen() {
   };
 
   const activeButtons: ActiveButton[] = [
-    { 
-      title: 'alternative', 
+    {
+      title: 'alternative',
       screen: '',
     },
-    { 
-      title: 'han', 
+    {
+      title: 'han',
       screen: '',
-    }
+    },
   ];
 
   const getFirstLetter = (name: string) => {
@@ -78,28 +87,36 @@ export default function DetailScreen() {
   return (
     <Screen
       enableEmptySpace={true}
-      iconName="back"
-      title={track?.track_name || "track name"}
-      subtitle={track?.artist_name || "artist name"}
+      iconName='back'
+      title={track?.track_name || 'track name'}
+      subtitle={track?.artist_name || 'artist name'}
       activeButtons={activeButtons}
       starRating={<StarRating rating={track?.rating || 0} />}
-      onBackPress={handleBackPress}
-    >
+      onBackPress={handleBackPress}>
       <View style={styles.container}>
-        <ScrollView style={styles.contentSection} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          style={styles.contentSection}
+          showsVerticalScrollIndicator={false}>
           {/* Comments Section */}
           <View style={styles.commentsSection}>
             {trackComments.map((comment: any, index: number) => {
               const avatarStyle = getAvatarStyle(index);
               return (
                 <View key={index} style={styles.commentItem}>
-                  <View style={[styles.avatarContainer, { backgroundColor: avatarStyle.backgroundColor }]}>
-                    <Text style={[styles.avatarText, { color: avatarStyle.color }]}>
+                  <View
+                    style={[
+                      styles.avatarContainer,
+                      {backgroundColor: avatarStyle.backgroundColor},
+                    ]}>
+                    <Text
+                      style={[styles.avatarText, {color: avatarStyle.color}]}>
                       {getFirstLetter(comment.user)}
                     </Text>
                   </View>
                   <View style={styles.commentContent}>
-                    <ThemedText style={styles.commentText}>{comment.comment}</ThemedText>
+                    <ThemedText style={styles.commentText}>
+                      {comment.comment}
+                    </ThemedText>
                   </View>
                 </View>
               );
@@ -110,13 +127,13 @@ export default function DetailScreen() {
         {/* Message Input Section - Fixed at bottom */}
         <View style={styles.messageSection}>
           <View style={styles.messageInputContainer}>
-            <TextInput 
+            <TextInput
               style={styles.messageInput}
-              placeholder="Add a comment..."
-              placeholderTextColor="#868686"
+              placeholder='Add a comment...'
+              placeholderTextColor='#868686'
             />
             <TouchableOpacity style={styles.sendButton}>
-              <IconSymbol size={20} name="paperplane.fill" color={'#868686'} />
+              <IconSymbol size={20} name='paperplane.fill' color={'#868686'} />
             </TouchableOpacity>
           </View>
         </View>
@@ -197,4 +214,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
   },
-}); 
+});
