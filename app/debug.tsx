@@ -10,8 +10,7 @@ export default function DebugScreen() {
     isLoading,
     error,
   });
-
-  console.log('hi', data);
+  console.log('supabase tracks', data);
 
   return (
     <SafeAreaView>
