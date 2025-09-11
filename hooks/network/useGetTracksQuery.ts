@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {Network} from '@/app/service/network/Network';
+import {Track} from '@/types';
 import {useQuery} from '@tanstack/react-query';
 
 const getTracks = async () => {
   const response = await Network.backendGet<{
-    tracks: any[];
+    tracks: Track[];
     count: number;
     success: boolean;
   }>('/api/tracks');
