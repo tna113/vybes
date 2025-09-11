@@ -1,33 +1,47 @@
-import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import axios from 'axios';
 
 export class Network {
-  private static baseUrl: string = 'https://zwbbzxleomraswznvsnd.supabase.co';
-  private static LEGACY_API_KEY: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3YmJ6eGxlb21yYXN3em52c25kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUzNDg2OTQsImV4cCI6MjA2MDkyNDY5NH0.CJiKl6OERmD-HoDU6w0gFVjbR_TGyTU7Dl-EF_e64tA';
+  private static backendUrl: string =
+    process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:3001';
 
-  private static axiosInstance: AxiosInstance = axios.create({
-    baseURL: this.baseUrl,
-    headers: {
-      'Content-Type': 'application/json',
-      apikey: this.LEGACY_API_KEY,
-      Authorization: `Bearer ${this.LEGACY_API_KEY}`,
-    },
-  });
-
-  static async get<T>(
+  static async backendGet<ResponseType>(
     endpoint: string,
-    config?: AxiosRequestConfig,
-  ): Promise<T> {
-    const response = await this.axiosInstance.get<T>(endpoint, config);
+  ): Promise<ResponseType> {
+    const response = await axios.get<ResponseType>(
+      `${this.backendUrl}${endpoint}`,
+    );
     return response.data;
   }
 
-  static async post<T>(
+  static async backendPost<ResponseType>(
     endpoint: string,
-    data: Record<string, unknown>,
-    config?: AxiosRequestConfig,
-  ): Promise<T> {
-    const response = await this.axiosInstance.post<T>(endpoint, data, config);
+    data: any,
+  ): Promise<ResponseType> {
+    const response = await axios.post<ResponseType>(
+      `${this.backendUrl}${endpoint}`,
+      data,
+    );
+    return response.data;
+  }
+
+  static async backendPut<ResponseType>(
+    endpoint: string,
+    data: any,
+  ): Promise<ResponseType> {
+    const response = await axios.put<ResponseType>(
+      `${this.backendUrl}${endpoint}`,
+      data,
+    );
+    return response.data;
+  }
+
+  static async backendDelete<ResponseType>(
+    endpoint: string,
+  ): Promise<ResponseType> {
+    const response = await axios.delete<ResponseType>(
+      `${this.backendUrl}${endpoint}`,
+    );
     return response.data;
   }
 }
