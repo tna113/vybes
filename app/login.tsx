@@ -1,4 +1,3 @@
-import {Ionicons} from '@expo/vector-icons';
 import {router} from 'expo-router';
 import React, {useState} from 'react';
 import {
@@ -7,18 +6,52 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+import Input from '../components/Input';
+import validate from './service/auth/validate';
 
 export default function LoginScreen() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [inputState, setInputState] = useState({
+    username: '',
+    userNameError: '',
+    password: '',
+    passwordError: '',
+  });
 
-  const handleSubmit = () => {
+  const handleLogin = async () => {
+    let hasError = false;
+
+    // Username validation
+    if (!validate.username(inputState.username)) {
+      inputState.userNameError = 'Invalid username';
+      hasError = true;
+    }
+
+    // Password validation
+    if (!validate.password(inputState.password)) {
+      inputState.passwordError = 'Invalid password';
+      hasError = true;
+    }
+
+    setInputState({
+      username: inputState.username,
+      userNameError: inputState.userNameError,
+      password: inputState.password,
+      passwordError: inputState.passwordError,
+    });
+
+    if (hasError) {
+      return;
+    }
+
     //TODO: VYBES-51: login logic
+
+    //TODO: VYBES-56: authorize with spotify
+    // const authUrl = await getAuthUrl();
+    // window.location.href = authUrl;
     router.push('/(tabs)');
   };
 
@@ -34,80 +67,66 @@ export default function LoginScreen() {
     router.push('/debug');
   };
 
+  const clearUsernameError = () => {
+    setInputState({...inputState, userNameError: ''});
+  };
+
+  const clearPasswordError = () => {
+    setInputState({...inputState, passwordError: ''});
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboardView}>
-        <View style={styles.content}>
-          {/* Logo */}
-          <View style={styles.logoContainer}>
-            <View style={styles.logo}>
-              <View style={styles.star}>
-                <Text style={styles.logoText}>v</Text>
-              </View>
-            </View>
-            <Text style={styles.appName}>vybes</Text>
-          </View>
-
-          {/* Input Fields */}
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder='username'
-              placeholderTextColor='#9BA1A6'
-              value={username}
-              onChangeText={setUsername}
-              autoCapitalize='none'
-              autoCorrect={false}
-            />
-
-            <View style={styles.passwordContainer}>
-              <TextInput
-                style={styles.passwordInput}
-                placeholder='password'
-                placeholderTextColor='#9BA1A6'
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry={!showPassword}
-                autoCapitalize='none'
-                autoCorrect={false}
-              />
-              <TouchableOpacity
-                style={styles.eyeIcon}
-                onPress={() => setShowPassword(!showPassword)}>
-                <Ionicons
-                  name={showPassword ? 'eye-off' : 'eye'}
-                  size={20}
-                  color='#9BA1A6'
-                />
-              </TouchableOpacity>
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <View style={styles.logoContainer}>
+          <View style={styles.logo}>
+            <View style={styles.star}>
+              <Text style={styles.logoText}>v</Text>
             </View>
           </View>
-
-          {/* Submit Button */}
-          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+          <Text style={styles.appName}>vybes</Text>
+        </View>
+        <View style={styles.inputContainer}>
+          <Input
+            placeholder='username'
+            value={inputState.username}
+            onChangeText={(username) =>
+              setInputState({...inputState, username})
+            }
+            error={inputState.userNameError}
+            onClearError={clearUsernameError}
+          />
+          <Input
+            placeholder='password'
+            value={inputState.password}
+            onChangeText={(password) =>
+              setInputState({...inputState, password})
+            }
+            secureTextEntry={!showPassword}
+            error={inputState.passwordError}
+            onClearError={clearPasswordError}
+            iconName={showPassword ? 'eye-off' : 'eye'}
+            onIconPress={() => setShowPassword(!showPassword)}
+          />
+          <TouchableOpacity style={styles.submitButton} onPress={handleLogin}>
             <Text style={styles.submitText}>submit</Text>
           </TouchableOpacity>
-
-          {/* Links */}
           <View style={styles.linksContainer}>
             <TouchableOpacity onPress={handleForgotPassword}>
-              <Text style={styles.forgotPasswordText}>forgot password</Text>
+              <Text style={styles.bottomLinkText}>forgot password</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity onPress={handleCreateAccount}>
-              <Text style={styles.createAccountText}>create an account</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={handleDebug} style={styles.debugButton}>
-              <Text style={[styles.forgotPasswordText, styles.debugText]}>
+            <TouchableOpacity onPress={handleDebug}>
+              <Text style={[styles.bottomLinkText, styles.debugText]}>
                 debug
               </Text>
             </TouchableOpacity>
           </View>
         </View>
       </KeyboardAvoidingView>
+      <TouchableOpacity onPress={handleCreateAccount} style={styles.footerLink}>
+        <Text style={styles.createAccountText}>create an account</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -115,20 +134,17 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1A1A1A',
-  },
-  keyboardView: {
-    flex: 1,
-  },
-  content: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 40,
+    backgroundColor: '#1A1A1A',
+    paddingBottom: 216,
+  },
+  inputContainer: {
+    minWidth: 288,
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 60,
+    marginBottom: 88,
   },
   logo: {
     width: 80,
@@ -139,7 +155,7 @@ const styles = StyleSheet.create({
     borderColor: '#5C8B7E',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 8,
   },
   star: {
     width: 50,
@@ -156,43 +172,7 @@ const styles = StyleSheet.create({
   },
   appName: {
     color: '#FFFFFF',
-    fontSize: 28,
-    fontWeight: '600',
-    letterSpacing: 1,
-  },
-  inputContainer: {
-    width: '100%',
-    marginBottom: 30,
-  },
-  input: {
-    backgroundColor: '#1A1A1A',
-    borderWidth: 1,
-    borderColor: '#9BA1A6',
-    borderRadius: 25,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    color: '#FFFFFF',
-    fontSize: 16,
-    marginBottom: 15,
-  },
-  passwordContainer: {
-    position: 'relative',
-  },
-  passwordInput: {
-    backgroundColor: '#1A1A1A',
-    borderWidth: 1,
-    borderColor: '#9BA1A6',
-    borderRadius: 25,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    paddingRight: 50,
-    color: '#FFFFFF',
-    fontSize: 16,
-  },
-  eyeIcon: {
-    position: 'absolute',
-    right: 20,
-    top: 15,
+    fontSize: 32,
   },
   submitButton: {
     backgroundColor: '#5C8B7E',
@@ -212,9 +192,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 15,
   },
-  forgotPasswordText: {
+  bottomLinkText: {
     color: '#9BA1A6',
-    fontSize: 14,
+    fontSize: 12,
   },
   createAccountText: {
     color: '#7FB0A0',
@@ -225,10 +205,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     paddingVertical: 8,
+    backgroundColor: '#B07F8F',
     paddingHorizontal: 16,
   },
-  debugButton: {
-    marginTop: 200,
-    backgroundColor: '#B07F8F',
+  footerLink: {
+    position: 'absolute',
+    bottom: 72,
   },
 });
