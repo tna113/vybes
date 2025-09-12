@@ -122,6 +122,6 @@ const styles = StyleSheet.create({
   errorContainer: {
     paddingHorizontal: 24,
     paddingVertical: 8,
-    minHeight: 30, // Reserve space for error text (14px font + 8px padding)
+    minHeight: 30, // Reserve space for error text (font size + padding)
   },
 });
